@@ -35,5 +35,21 @@ namespace DETrainingDeepNN
         {
             return Int32.Parse(ConfigurationManager.AppSettings["Dimensions"]);
         }
+
+        public static Individual operator +(Individual individual1, Individual individual2)
+        {
+            return new Individual {
+                Position = individual1.Position.Zip(individual2.Position, (x, y) => x + y).ToArray()
+            };
+        }
+
+        public static Individual operator -(Individual individual1, Individual individual2)
+        {
+            return new Individual
+            {
+                Position = individual1.Position.Zip(individual2.Position, (x, y) => x - y).ToArray()
+            };
+        }
+
     }
 }
