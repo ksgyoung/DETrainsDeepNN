@@ -58,6 +58,7 @@
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\Crossover\BinomialCrossover.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mappers\" />
-    <Folder Include="Strategies\Crossover\" />
     <Folder Include="Strategies\Selection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

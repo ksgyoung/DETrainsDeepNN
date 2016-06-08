@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Models\IndividualTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\Crossover\BinomialCrossoverTest.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualGeneratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
