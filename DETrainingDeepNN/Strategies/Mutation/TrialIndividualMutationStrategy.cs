@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DETrainingDeepNN.Strategies.Mutation.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DETrainingDeepNN.Strategies.Mutation
 {
-    public class TrialIndividualGenerator
+    public class TrialIndividualMutationStrategy : ITrialIndividualMutationStrategy
     {
         public Individual GetTrialVector(Individual target, Individual first, Individual second)
         {

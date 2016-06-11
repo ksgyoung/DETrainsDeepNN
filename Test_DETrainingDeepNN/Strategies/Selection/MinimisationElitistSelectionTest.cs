@@ -23,7 +23,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
                 Fitness = 1.234
             };
             
-            MinimisationElitistSelection selection = new MinimisationElitistSelection();
+            MinimisationElitistSelectionStrategy selection = new MinimisationElitistSelectionStrategy();
             Individual result = selection.Select(new List<Individual>
             {
                 individual1, individual2
@@ -50,7 +50,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
                 Fitness = 1.444
             };
 
-            MinimisationElitistSelection selection = new MinimisationElitistSelection();
+            MinimisationElitistSelectionStrategy selection = new MinimisationElitistSelectionStrategy();
             Individual result = selection.Select(new List<Individual>
             {
                 individual1, individual2, individual3
@@ -72,7 +72,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
                 Fitness = 1.234
             };
             
-            MinimisationElitistSelection selection = new MinimisationElitistSelection();
+            MinimisationElitistSelectionStrategy selection = new MinimisationElitistSelectionStrategy();
             Individual result = selection.Select(new List<Individual>
             {
                 individual1, individual2

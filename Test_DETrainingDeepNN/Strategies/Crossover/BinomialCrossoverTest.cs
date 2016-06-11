@@ -25,7 +25,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
-            BinomialCrossover crossoverStrategy = new BinomialCrossover(new Random(2));
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random(2));
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -47,7 +47,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
-            BinomialCrossover crossoverStrategy = new BinomialCrossover(new Random(2));
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random(2));
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -83,7 +83,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
-            BinomialCrossover crossoverStrategy = new BinomialCrossover(new Random(5), 0.0);
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random(5), 0.0);
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -104,7 +104,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
-            BinomialCrossover crossoverStrategy = new BinomialCrossover(new Random(5),1.0);
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random(5),1.0);
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 

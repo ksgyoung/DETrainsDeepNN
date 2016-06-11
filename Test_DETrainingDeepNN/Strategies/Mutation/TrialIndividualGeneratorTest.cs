@@ -26,7 +26,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
                 Position = new double[] { 6.0, 7.0, 8.0 }
             };
             
-            TrialIndividualGenerator generator = new TrialIndividualGenerator();
+            TrialIndividualMutationStrategy generator = new TrialIndividualMutationStrategy();
             Individual result = generator.GetTrialVector(target, individual1, individual2);
 
             Assert.AreEqual(result.Position[0], 2.5);
@@ -42,7 +42,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
                 Position = new double[] { 1.0, 2.0, 4.0 }
             };
             
-            TrialIndividualGenerator generator = new TrialIndividualGenerator();
+            TrialIndividualMutationStrategy generator = new TrialIndividualMutationStrategy();
             Individual result = generator.Scale(individual, 0.5);
 
             Assert.AreEqual(result.Position[0], 0.5);

@@ -58,9 +58,15 @@
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strategies\Crossover\BinomialCrossover.cs" />
-    <Compile Include="Strategies\Mutation\TrialIndividualGenerator.cs" />
-    <Compile Include="Strategies\Selection\MinimisationElitistSelection.cs" />
+    <Compile Include="Strategies\Crossover\BinomialCrossoverStrategy.cs" />
+    <Compile Include="Strategies\Crossover\Interfaces\IBinomialCrossoverStrategy.cs" />
+    <Compile Include="Strategies\Crossover\Interfaces\ICrossoverStrategy.cs" />
+    <Compile Include="Strategies\Mutation\Interfaces\ITrialIndividualMutationStrategy.cs" />
+    <Compile Include="Strategies\Mutation\Interfaces\IMutationStrategy.cs" />
+    <Compile Include="Strategies\Mutation\TrialIndividualMutationStrategy.cs" />
+    <Compile Include="Strategies\Selection\Interfaces\IMinimisationElitistSelectionStrategy.cs" />
+    <Compile Include="Strategies\Selection\Interfaces\ISelectionStrategy.cs" />
+    <Compile Include="Strategies\Selection\MinimisationElitistSelectionStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DETrainingDeepNN.Strategies.Selection.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DETrainingDeepNN.Strategies.Selection
 {
-    public class MinimisationElitistSelection
+    public class MinimisationElitistSelectionStrategy : IMinimisationElitistSelectionStrategy
     {
         public Individual Select(List<Individual> individuals)
         {
