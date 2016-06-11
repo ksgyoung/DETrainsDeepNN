@@ -4,6 +4,7 @@ using DETrainingDeepNN.Strategies.Selection;
 using System.Collections.Generic;
 using DETrainingDeepNN;
 using Moq;
+using DETrainingDeepNN.Strategies.Selection.Exceptions;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
@@ -119,6 +120,19 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             });
 
             Assert.AreEqual(individual1, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoValidIndividualsException))]
+        public void GivenNoIndividuals_WhenTheRandomSelectionStrategyIsUsed_ItShouldReturnNull()
+        {
+            Mock<Random> mock = new Mock<Random>();
+            mock.Setup(x => x.Next(It.IsAny<int>())).Returns(0);
+            Random mockedRandom = mock.Object;
+
+            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy(mockedRandom);
+
+            Individual result = selectionStrategy.Select(new List<Individual>());
         }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Strategies\Crossover\BinomialCrossoverTest.cs" />
     <Compile Include="Strategies\FitnessEvaluation\RastriginFitnessEvaluationStrategyTest.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualGeneratorTest.cs" />
+    <Compile Include="Strategies\Selection\Exceptions\NoValidIndividualsExceptionTest.cs" />
     <Compile Include="Strategies\Selection\MinimisationElitistSelectionTest.cs" />
     <Compile Include="Strategies\Selection\RandomSelectionStrategyTest.cs" />
   </ItemGroup>

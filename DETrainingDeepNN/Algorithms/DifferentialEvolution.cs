@@ -13,15 +13,19 @@ namespace DETrainingDeepNN.Algorithms
     {
         private IMutationStrategy mutationStrategy;
         private ICrossoverStrategy crossoverStrategy;
-        private ISelectionStrategy selectionStrategy;
+        private ISelectionStrategy generationSelectionStrategy;
+        private ISelectionStrategy differenceIndividualSelectionStrategy;
 
         public DifferentialEvolution(IMutationStrategy mutationStrategy, 
                                      ICrossoverStrategy crossoverStrategy, 
-                                     ISelectionStrategy selectionStrategy)
+                                     ISelectionStrategy generationSelectionStrategy,
+                                     ISelectionStrategy differenceIndividualSelectionStrategy
+                                     )
         {
             this.mutationStrategy = mutationStrategy;
             this.crossoverStrategy = crossoverStrategy;
-            this.selectionStrategy = selectionStrategy;
+            this.generationSelectionStrategy = generationSelectionStrategy;
+            this.differenceIndividualSelectionStrategy = differenceIndividualSelectionStrategy;
         }
 
         public void Run()
@@ -50,6 +54,13 @@ namespace DETrainingDeepNN.Algorithms
                 //create trial vector
                 //create offspring
                 //select
+        }
+
+        internal Individual SelectDifferenceIndividual(List<Individual> population, List<Individual> invalidIndividuals)
+        {
+            List<Individual> validPopulation = population.Where(x => !invalidIndividuals.Contains(x)).ToList();
+
+            return differenceIndividualSelectionStrategy.Select(validPopulation);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.Strategies.Selection.Interfaces;
+﻿using DETrainingDeepNN.Strategies.Selection.Exceptions;
+using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace DETrainingDeepNN.Strategies.Selection
     {
         public Individual Select(List<Individual> individuals)
         {
+            if(individuals.Count == 0)
+            {
+                throw new NoValidIndividualsException();
+            }
+
             Individual mostFitIndividual = individuals[0];
 
             foreach (Individual indivividual in individuals)

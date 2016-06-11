@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.Strategies.Selection.Interfaces;
+﻿using DETrainingDeepNN.Strategies.Selection.Exceptions;
+using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,14 @@ namespace DETrainingDeepNN.Strategies.Selection
 
         public Individual Select(List<Individual> individuals)
         {
-            int index = random.Next(individuals.Count);
+            if (individuals.Count > 0)
+            {
+                int index = random.Next(individuals.Count);
 
-            return individuals[index];
+                return individuals[index];
+            }
+
+            throw new NoValidIndividualsException();
         }
     }
 }

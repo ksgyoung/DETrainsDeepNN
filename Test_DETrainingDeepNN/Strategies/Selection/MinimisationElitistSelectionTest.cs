@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using DETrainingDeepNN.Strategies.Selection;
 using DETrainingDeepNN;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using DETrainingDeepNN.Strategies.Selection.Exceptions;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
@@ -79,6 +81,15 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             });
 
             Assert.AreEqual(individual1, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NoValidIndividualsException))]
+        public void GivenNoIndividuals_WhenTheRandomSelectionStrategyIsUsed_ItShouldReturnNull()
+        {
+            MinimisationElitistSelectionStrategy selectionStrategy = new MinimisationElitistSelectionStrategy();
+
+            Individual result = selectionStrategy.Select(new List<Individual>());
         }
     }
 }

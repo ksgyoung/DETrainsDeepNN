@@ -71,6 +71,7 @@
     <Compile Include="Strategies\Mutation\Interfaces\ITrialIndividualMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\Interfaces\IMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualMutationStrategy.cs" />
+    <Compile Include="Strategies\Selection\Exceptions\NoValidIndividualsException.cs" />
     <Compile Include="Strategies\Selection\Interfaces\IMinimisationElitistSelectionStrategy.cs" />
     <Compile Include="Strategies\Selection\Interfaces\IRandomSelectionStrategy.cs" />
     <Compile Include="Strategies\Selection\Interfaces\ISelectionStrategy.cs" />
