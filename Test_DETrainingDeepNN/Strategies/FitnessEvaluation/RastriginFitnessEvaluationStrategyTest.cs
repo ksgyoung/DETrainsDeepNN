@@ -13,7 +13,7 @@ namespace Test_DETrainingDeepNN.Strategies.FitnessEvaluation
         {
             RastriginFitnessEvaluationStrategy rastriginCalculator = new RastriginFitnessEvaluationStrategy();
 
-            Individual individual = new Individual
+            Individual individual = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 
 namespace DETrainingDeepNN
 {
@@ -11,11 +12,13 @@ namespace DETrainingDeepNN
     {
         public double Fitness { get; set; }
         public double[] Position { get; set; }
+        private IFitnessEvaluationStrategy fitnessEvaluationStrategy;
 
-        public Individual(int dimensions = 0)
+        public Individual(IFitnessEvaluationStrategy fitnessEvaluationStrategy, int dimensions = 0)
         {
             Fitness = 0;
             this.InitialisePosition(dimensions);
+            this.fitnessEvaluationStrategy = fitnessEvaluationStrategy;
         }
 
         private void InitialisePosition(int dimensions)
@@ -36,20 +39,28 @@ namespace DETrainingDeepNN
             return Int32.Parse(ConfigurationManager.AppSettings["Dimensions"]);
         }
 
+        internal void EvaluateFitness()
+        {
+            this.Fitness = this.fitnessEvaluationStrategy.GetFitnessForIndividual(this);
+        }
+
         public static Individual operator +(Individual individual1, Individual individual2)
         {
-            return new Individual {
+            return new Individual(null)
+            {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x + y).ToArray()
             };
         }
 
         public static Individual operator -(Individual individual1, Individual individual2)
         {
-            return new Individual
+            return new Individual(null)
             {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x - y).ToArray()
             };
         }
+
+
 
     }
 }

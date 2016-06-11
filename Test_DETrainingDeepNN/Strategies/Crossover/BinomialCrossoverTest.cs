@@ -15,12 +15,12 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualDifferentFromTheInputs()
         {
 
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
@@ -37,12 +37,12 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualWithPartsFromEachIndividual()
         {
 
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
@@ -73,12 +73,12 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAprobabilityOfZero_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
@@ -94,12 +94,12 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAprobabilityOfOne_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };

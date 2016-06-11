@@ -20,7 +20,7 @@ namespace DETrainingDeepNN.Strategies.Mutation
 
         internal Individual Scale(Individual individual, double scale)
         {
-            return new Individual
+            return new Individual(null)
             {
                 Position = individual.Position.Select((x, i) => x * scale).ToArray()
             };

@@ -13,12 +13,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [TestMethod]
         public void GivenTwoIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Fitness = 1.234
             };
@@ -35,17 +35,17 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [TestMethod]
         public void GivenThreeIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Fitness = 1.234
             };
 
-            Individual individual3 = new Individual
+            Individual individual3 = new Individual(null)
             {
                 Fitness = 1.444
             };
@@ -62,12 +62,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [TestMethod]
         public void GivenTwoIndividualsWithTheSameFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheFirtsOfTheTwoIndividuals()
         {
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Fitness = 1.234
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Fitness = 1.234
             };

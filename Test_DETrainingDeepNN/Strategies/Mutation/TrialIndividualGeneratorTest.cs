@@ -12,16 +12,17 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
         [TestMethod]
         public void GivenThreeIndividuals_WhenTheTrialIndividualIsGenerated_ItShouldReturnTheTargetIndividualAddedToTheScaledDifferenceOfTheOtherIndividuals()
         {
-            Individual target = new Individual {
+            Individual target = new Individual(null)
+            {
                 Position = new double[]{ 1.0, 2.0, 3.0}
             };
 
-            Individual individual1 = new Individual
+            Individual individual1 = new Individual(null)
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
-            Individual individual2 = new Individual
+            Individual individual2 = new Individual(null)
             {
                 Position = new double[] { 6.0, 7.0, 8.0 }
             };
@@ -37,7 +38,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
         [TestMethod]
         public void GivenAnIndividual_WhenTheIndividualIsScaled_ItShouldReturnAnIndividualWithEachDimensionScaled()
         {
-            Individual individual = new Individual
+            Individual individual = new Individual(null)
             {
                 Position = new double[] { 1.0, 2.0, 4.0 }
             };

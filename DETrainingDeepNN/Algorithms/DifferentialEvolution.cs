@@ -37,7 +37,7 @@ namespace DETrainingDeepNN.Algorithms
 
             for(int index = 0; index < populationSize; index++)
             {
-                population.Add(new Individual());
+                population.Add(new Individual(null));
             }
 
             return population;
