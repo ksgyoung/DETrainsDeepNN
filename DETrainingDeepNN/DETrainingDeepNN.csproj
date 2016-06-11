@@ -61,6 +61,9 @@
     <Compile Include="Strategies\Crossover\BinomialCrossoverStrategy.cs" />
     <Compile Include="Strategies\Crossover\Interfaces\IBinomialCrossoverStrategy.cs" />
     <Compile Include="Strategies\Crossover\Interfaces\ICrossoverStrategy.cs" />
+    <Compile Include="Strategies\FitnessEvaluation\Interfaces\IFitnessEvaluationStrategy.cs" />
+    <Compile Include="Strategies\FitnessEvaluation\Interfaces\IRastriginFitnessEvaluationStrategy.cs" />
+    <Compile Include="Strategies\FitnessEvaluation\RastriginFitnessEvaluationStrategy.cs" />
     <Compile Include="Strategies\Mutation\Interfaces\ITrialIndividualMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\Interfaces\IMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualMutationStrategy.cs" />
