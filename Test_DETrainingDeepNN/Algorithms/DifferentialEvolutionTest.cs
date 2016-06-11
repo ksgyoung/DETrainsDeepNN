@@ -5,6 +5,7 @@ using DETrainingDeepNN;
 using System.Collections.Generic;
 using Moq;
 using DETrainingDeepNN.Strategies.Selection.Interfaces;
+using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 
 namespace Test_DETrainingDeepNN.Algorithms
 {
@@ -66,6 +67,44 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsTrue(resultingPopulation.Contains(individual1));
             Assert.IsTrue(resultingPopulation.Contains(individual3));
         }
-        
+
+        [TestMethod]
+        public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheEvaluateMethodThreeTimes()
+        {
+            Mock<IFitnessEvaluationStrategy> mock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = mock.Object;
+            
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null);
+            differentialEvolution.population = new List<Individual>
+            {
+                new Individual(fitnessEvaluationStrategy),
+                new Individual(fitnessEvaluationStrategy),
+                new Individual(fitnessEvaluationStrategy)
+            };
+
+            differentialEvolution.GetNewPopulation();
+
+            mock.Verify(c => c.GetFitnessForIndividual(It.IsAny<Individual>()), Times.Exactly(3));
+        }
+
+        [TestMethod]
+        public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheEvaluateMethodWithTheIndividualAsAParameter()
+        {
+            Mock<IFitnessEvaluationStrategy> mock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = mock.Object;
+
+            Individual individual = new Individual(fitnessEvaluationStrategy);
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null);
+            differentialEvolution.population = new List<Individual>
+            {
+                individual
+            };
+
+            differentialEvolution.GetNewPopulation();
+
+            mock.Verify(c => c.GetFitnessForIndividual(It.Is<Individual>(p => p == individual)));
+        }
+
     }
 }

@@ -15,6 +15,7 @@ namespace DETrainingDeepNN.Algorithms
         private ICrossoverStrategy crossoverStrategy;
         private ISelectionStrategy generationSelectionStrategy;
         private ISelectionStrategy differenceIndividualSelectionStrategy;
+        internal List<Individual> population;
 
         public DifferentialEvolution(IMutationStrategy mutationStrategy, 
                                      ICrossoverStrategy crossoverStrategy, 
@@ -47,13 +48,17 @@ namespace DETrainingDeepNN.Algorithms
             return population;
         }
 
-        internal void RunIteration()
+        internal List<Individual> GetNewPopulation()
         {
-            //for each individual
-                //evaluate fitness
+            foreach(Individual individual in population)
+            {
+                individual.EvaluateFitness();
                 //create trial vector
                 //create offspring
                 //select
+            }
+            
+            return null;
         }
 
         internal Individual SelectDifferenceIndividual(List<Individual> population, List<Individual> invalidIndividuals)
