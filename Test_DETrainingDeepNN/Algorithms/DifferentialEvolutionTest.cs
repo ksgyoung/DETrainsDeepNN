@@ -236,7 +236,7 @@ namespace Test_DETrainingDeepNN.Algorithms
         }
 
         [TestMethod]
-        public void GivenAPopulationOfFour_WhenANewPopulationIsRetrieved_ItShouldCallTheCrossoverStrategyWithTheIndividualAndTheTrialIndividual()
+        public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheCrossoverStrategyWithTheIndividualAndTheTrialIndividual()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
             IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
@@ -270,6 +270,85 @@ namespace Test_DETrainingDeepNN.Algorithms
             differentialEvolution.GetNewPopulation();
 
             crossoverMock.Verify(c => c.Cross(individual, mutant), Times.Once());
+        }
+
+        [TestMethod]
+        public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheSelectionStrategyThreeTimes()
+        {
+            Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
+
+            Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
+            ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
+            
+            Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
+            IMutationStrategy mutationStrategy = mutationMock.Object;
+
+            Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
+            ISelectionStrategy selectionStrategy = selectionMock.Object;
+
+            Mock<ISelectionStrategy> otherSelectionMock = new Mock<ISelectionStrategy>();
+            ISelectionStrategy otherSelectionStrategy = otherSelectionMock.Object;
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
+                                                                                    crossoverStrategy,
+                                                                                    otherSelectionStrategy,
+                                                                                    selectionStrategy);
+
+
+
+            differentialEvolution.population = new List<Individual>
+            {
+                new Individual(fitnessEvaluationStrategy),
+                new Individual(fitnessEvaluationStrategy),
+                new Individual(fitnessEvaluationStrategy)
+            };
+
+            differentialEvolution.GetNewPopulation();
+
+            otherSelectionMock.Verify(c => c.Select(It.IsAny<List<Individual>>()), Times.Exactly(3));
+        }
+
+        [TestMethod]
+        public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheSelectionStrategyWithTheIndividualAndTheChild()
+        {
+            Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
+            
+            Individual individual = new Individual(fitnessEvaluationStrategy);
+            Individual child = new Individual(fitnessEvaluationStrategy);
+
+            Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
+            crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>())).Returns(child);
+            ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
+            
+            Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
+            IMutationStrategy mutationStrategy = mutationMock.Object;
+
+            List<Individual> receivedIndividuals = new List<Individual>();
+            Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
+            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>())).Callback((List<Individual> individualList) =>
+                    receivedIndividuals = individualList
+            );
+            ISelectionStrategy selectionStrategy = selectionMock.Object;
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
+                                                                                    crossoverStrategy,
+                                                                                    selectionStrategy,
+                                                                                    selectionStrategy);
+
+
+
+            differentialEvolution.population = new List<Individual>
+            {
+                individual
+            };
+
+            differentialEvolution.GetNewPopulation();
+
+            Assert.AreEqual(2, receivedIndividuals.Count);
+            Assert.IsTrue(receivedIndividuals.Contains(individual));
+            Assert.IsTrue(receivedIndividuals.Contains(child));
         }
 
     }

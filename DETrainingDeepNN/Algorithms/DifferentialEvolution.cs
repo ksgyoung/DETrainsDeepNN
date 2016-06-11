@@ -63,8 +63,9 @@ namespace DETrainingDeepNN.Algorithms
                 Individual differenceIndividual2 = this.SelectDifferenceIndividual(population, invalidIndividuals);
 
                 Individual trialIndividual = mutationStrategy.GetTrialVector(target, differenceIndividual1, differenceIndividual2);
-                crossoverStrategy.Cross(individual, trialIndividual);
-                //select
+                Individual child = crossoverStrategy.Cross(individual, trialIndividual);
+
+                Individual winner = generationSelectionStrategy.Select(new List<Individual> { individual, child });
             }
             
             return null;
