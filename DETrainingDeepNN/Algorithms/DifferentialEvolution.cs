@@ -53,8 +53,17 @@ namespace DETrainingDeepNN.Algorithms
             foreach(Individual individual in population)
             {
                 individual.EvaluateFitness();
-                //create trial vector
-                //create offspring
+
+                List<Individual> invalidIndividuals = new List<Individual>();
+
+                Individual target = this.SelectDifferenceIndividual(population, invalidIndividuals);
+                invalidIndividuals.Add(target);
+                Individual differenceIndividual1 = this.SelectDifferenceIndividual(population, invalidIndividuals);
+                invalidIndividuals.Add(differenceIndividual1);
+                Individual differenceIndividual2 = this.SelectDifferenceIndividual(population, invalidIndividuals);
+
+                Individual trialIndividual = mutationStrategy.GetTrialVector(target, differenceIndividual1, differenceIndividual2);
+                crossoverStrategy.Cross(individual, trialIndividual);
                 //select
             }
             
