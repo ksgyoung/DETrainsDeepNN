@@ -20,10 +20,9 @@ namespace DETrainingDeepNN.Strategies.Mutation
 
         internal Individual Scale(Individual individual, double scale)
         {
-            return new Individual(null)
-            {
-                Position = individual.Position.Select((x, i) => x * scale).ToArray()
-            };
+            individual.Position = individual.Position.Select((x, i) => x * scale).ToArray();
+
+            return individual;
         }
 
         internal Individual GetDifference(List<Individual> individuals)

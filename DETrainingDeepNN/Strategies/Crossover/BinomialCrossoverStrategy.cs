@@ -38,7 +38,7 @@ namespace DETrainingDeepNN.Strategies.Crossover
                     : individual2.Position[index];
             }
 
-            return new Individual(null)
+            return new Individual(individual1.FitnessEvaluationStrategy)
             {
                 Position = newPosition
             };

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Algorithms.interfaces
+namespace DETrainingDeepNN.Algorithms.Interfaces
 {
     public interface IDifferentialEvolution
     {

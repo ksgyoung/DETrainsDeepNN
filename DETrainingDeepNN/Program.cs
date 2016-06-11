@@ -1,8 +1,18 @@
-﻿using System;
+﻿using DETrainingDeepNN.Algorithms;
+using DETrainingDeepNN.Algorithms.Interfaces;
+using DETrainingDeepNN.Strategies.Crossover;
+using DETrainingDeepNN.Strategies.Crossover.Interfaces;
+using DETrainingDeepNN.Strategies.Mutation;
+using DETrainingDeepNN.Strategies.Mutation.Interfaces;
+using DETrainingDeepNN.Strategies.Selection.Interfaces;
+using DETrainingDeepNN.Strategies.Selection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
+using DETrainingDeepNN.Strategies.FitnessEvaluation;
 
 namespace DETrainingDeepNN
 {
@@ -10,6 +20,21 @@ namespace DETrainingDeepNN
     {
         static void Main(string[] args)
         {
+            IMutationStrategy trialVectorMutationStrategy = new TrialIndividualMutationStrategy();
+            ICrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random());
+            ISelectionStrategy generationSelectionStrategy = new MinimisationElitistSelectionStrategy();
+            ISelectionStrategy differenceVectorSelectionStrategy = new RandomSelectionStrategy(new Random());
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = new RastriginFitnessEvaluationStrategy();
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(
+                trialVectorMutationStrategy, 
+                crossoverStrategy, 
+                generationSelectionStrategy, 
+                differenceVectorSelectionStrategy, 
+                fitnessEvaluationStrategy
+                );
+
+            differentialEvolution.Run();
         }
     }
 }

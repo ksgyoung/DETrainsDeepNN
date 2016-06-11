@@ -12,13 +12,13 @@ namespace DETrainingDeepNN
     {
         public double Fitness { get; set; }
         public double[] Position { get; set; }
-        private IFitnessEvaluationStrategy fitnessEvaluationStrategy;
+        public IFitnessEvaluationStrategy FitnessEvaluationStrategy;
 
         public Individual(IFitnessEvaluationStrategy fitnessEvaluationStrategy, int dimensions = 0)
         {
             Fitness = 0;
             this.InitialisePosition(dimensions);
-            this.fitnessEvaluationStrategy = fitnessEvaluationStrategy;
+            this.FitnessEvaluationStrategy = fitnessEvaluationStrategy;
         }
 
         private void InitialisePosition(int dimensions)
@@ -30,7 +30,7 @@ namespace DETrainingDeepNN
 
             for(int i = 0; i < dimensions; i++)
             {
-                Position[i] = random.NextDouble();
+                Position[i] = random.NextDouble() * 80;
             }
         }
 
@@ -41,12 +41,12 @@ namespace DETrainingDeepNN
 
         internal void EvaluateFitness()
         {
-            this.Fitness = this.fitnessEvaluationStrategy.GetFitnessForIndividual(this);
+            this.Fitness = this.FitnessEvaluationStrategy.GetFitnessForIndividual(this);
         }
-
+        
         public static Individual operator +(Individual individual1, Individual individual2)
         {
-            return new Individual(null)
+            return new Individual(individual1.FitnessEvaluationStrategy)
             {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x + y).ToArray()
             };
@@ -54,7 +54,7 @@ namespace DETrainingDeepNN
 
         public static Individual operator -(Individual individual1, Individual individual2)
         {
-            return new Individual(null)
+            return new Individual(individual1.FitnessEvaluationStrategy)
             {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x - y).ToArray()
             };

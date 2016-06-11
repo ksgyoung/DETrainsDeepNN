@@ -1,4 +1,4 @@
-﻿using DETrainingDeepNN.Algorithms.interfaces;
+﻿using DETrainingDeepNN.Algorithms.Interfaces;
 using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;

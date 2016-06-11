@@ -8,7 +8,7 @@ using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;
-using DETrainingDeepNN.Algorithms.interfaces;
+using DETrainingDeepNN.Algorithms.Interfaces;
 
 namespace Test_DETrainingDeepNN.Algorithms
 {
