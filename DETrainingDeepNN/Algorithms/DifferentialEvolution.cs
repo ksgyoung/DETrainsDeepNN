@@ -1,39 +1,49 @@
-﻿using DETrainingDeepNN.Strategies.Crossover.Interfaces;
+﻿using DETrainingDeepNN.Algorithms.interfaces;
+using DETrainingDeepNN.Strategies.Crossover.Interfaces;
+using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;
 using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DETrainingDeepNN.Algorithms
 {
-    public class DifferentialEvolution
+    public class DifferentialEvolution : IDifferentialEvolution
     {
         private IMutationStrategy mutationStrategy;
         private ICrossoverStrategy crossoverStrategy;
         private ISelectionStrategy generationSelectionStrategy;
         private ISelectionStrategy differenceIndividualSelectionStrategy;
+        private IFitnessEvaluationStrategy fitnessEvaluationStrategy;
+
         internal List<Individual> population;
 
         public DifferentialEvolution(IMutationStrategy mutationStrategy, 
                                      ICrossoverStrategy crossoverStrategy, 
                                      ISelectionStrategy generationSelectionStrategy,
-                                     ISelectionStrategy differenceIndividualSelectionStrategy
+                                     ISelectionStrategy differenceIndividualSelectionStrategy,
+                                     IFitnessEvaluationStrategy fitnessEvaluationStrategy
                                      )
         {
             this.mutationStrategy = mutationStrategy;
             this.crossoverStrategy = crossoverStrategy;
             this.generationSelectionStrategy = generationSelectionStrategy;
             this.differenceIndividualSelectionStrategy = differenceIndividualSelectionStrategy;
+            this.fitnessEvaluationStrategy = fitnessEvaluationStrategy;
         }
 
         public void Run()
         {
-            //initialise
-            //for each iteration
-            //run iteration
+            int populationSize = Int32.Parse(ConfigurationManager.AppSettings["PopulationSize"]);
+            int iterations = Int32.Parse(ConfigurationManager.AppSettings["Iterations"]);
+
+            this.population = this.InitialisePopulation(populationSize);
+            for(int iteration = 0; iteration < iterations; iteration++)
+            {
+                this.population = this.GetNewPopulation();
+            }
         }
 
         internal List<Individual> InitialisePopulation(int populationSize)
@@ -42,7 +52,7 @@ namespace DETrainingDeepNN.Algorithms
 
             for(int index = 0; index < populationSize; index++)
             {
-                population.Add(new Individual(null));
+                population.Add(new Individual(this.fitnessEvaluationStrategy));
             }
 
             return population;

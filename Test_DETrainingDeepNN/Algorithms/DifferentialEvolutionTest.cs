@@ -8,6 +8,7 @@ using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;
+using DETrainingDeepNN.Algorithms.interfaces;
 
 namespace Test_DETrainingDeepNN.Algorithms
 {
@@ -19,7 +20,7 @@ namespace Test_DETrainingDeepNN.Algorithms
         [TestMethod]
         public void GivenADifferentialEvolutionAlgorithm_WhenThePopulationIsInitialisedWithAPopulationSizeOfTen_ItShouldReturnAPopulationOfTenIndividuals()
         {
-            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null);
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null, null);
 
             List<Individual> population = differentialEvolution.InitialisePopulation(10);
 
@@ -60,7 +61,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             mock.Setup(c => c.Select(It.IsAny<List<Individual>>()))
             .Callback((List<Individual> validPopulation) => resultingPopulation = validPopulation);
 
-            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, mock.Object);
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, mock.Object, null);
             
             differentialEvolution.SelectDifferenceIndividual(population, invalidIndividuals);
 
@@ -88,7 +89,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
             
             differentialEvolution.population = new List<Individual>
             {
@@ -120,7 +122,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
             Individual individual = new Individual(fitnessEvaluationStrategy);
             
@@ -152,7 +155,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
             differentialEvolution.population = new List<Individual>
             {
                 new Individual(fitnessEvaluationStrategy),
@@ -191,7 +195,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
             
             differentialEvolution.population = new List<Individual>
@@ -222,7 +227,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy, 
                                                                                     crossoverStrategy, 
                                                                                     selectionStrategy, 
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
             differentialEvolution.population = new List<Individual>
             {
                 new Individual(fitnessEvaluationStrategy),
@@ -258,7 +264,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
             
 
@@ -293,7 +300,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     otherSelectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
 
 
@@ -335,7 +343,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    selectionStrategy);
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
 
 
@@ -379,7 +388,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
-                                                                                    otherSelectionStrategy);
+                                                                                    otherSelectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
 
 
 
@@ -396,5 +406,61 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsFalse(newPopulation.Contains(child2));
             Assert.IsFalse(newPopulation.Contains(individual1));
         }
+
+        [TestMethod]
+        public void GivenADifferentialEvolutionAlgorithm_WhenTheAlgorithmIsRun_ItShouldResultInAPopulationWithAtLeastOneIndividual()
+        {
+            Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
+            
+            Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
+            ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
+
+            Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
+            IMutationStrategy mutationStrategy = mutationMock.Object;
+            
+            Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
+            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>())).Returns(new Individual(fitnessEvaluationStrategy));
+            ISelectionStrategy selectionStrategy = selectionMock.Object;
+            
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
+                                                                                    crossoverStrategy,
+                                                                                    selectionStrategy,
+                                                                                    selectionStrategy,
+                                                                                    fitnessEvaluationStrategy);
+
+            differentialEvolution.Run();
+            
+            Assert.IsTrue(differentialEvolution.population.Count > 0);
+        }
+
+        [TestMethod]
+        public void GivenFiveIterationsAndThreeIndividuals_WhenTheAlgorithmIsRun_ItShouldCallTheCrossoverStrategyFifteenTimes()
+        {
+            Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
+
+            Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
+            ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
+
+            Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
+            IMutationStrategy mutationStrategy = mutationMock.Object;
+
+            Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
+            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>())).Returns(new Individual(fitnessEvaluationStrategy));
+            ISelectionStrategy selectionStrategy = selectionMock.Object;
+
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
+                                                                                    crossoverStrategy,
+                                                                                    selectionStrategy,
+                                                                                    selectionStrategy, 
+                                                                                    fitnessEvaluationStrategy);
+
+            differentialEvolution.Run();
+
+            crossoverMock.Verify(c => c.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()), Times.Exactly(15));
+        }
+        
     }
 }

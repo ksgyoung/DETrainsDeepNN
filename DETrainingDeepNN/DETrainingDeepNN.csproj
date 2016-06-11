@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\DifferentialEvolution.cs" />
+    <Compile Include="Algorithms\interfaces\IDifferentialEvolution.cs" />
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
