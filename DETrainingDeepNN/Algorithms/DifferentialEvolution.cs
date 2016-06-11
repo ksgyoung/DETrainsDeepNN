@@ -50,6 +50,8 @@ namespace DETrainingDeepNN.Algorithms
 
         internal List<Individual> GetNewPopulation()
         {
+            List<Individual> newPopulation = new List<Individual>();
+
             foreach(Individual individual in population)
             {
                 individual.EvaluateFitness();
@@ -65,10 +67,10 @@ namespace DETrainingDeepNN.Algorithms
                 Individual trialIndividual = mutationStrategy.GetTrialVector(target, differenceIndividual1, differenceIndividual2);
                 Individual child = crossoverStrategy.Cross(individual, trialIndividual);
 
-                Individual winner = generationSelectionStrategy.Select(new List<Individual> { individual, child });
+                newPopulation.Add(generationSelectionStrategy.Select(new List<Individual> { individual, child }));
             }
             
-            return null;
+            return newPopulation;
         }
 
         internal Individual SelectDifferenceIndividual(List<Individual> population, List<Individual> invalidIndividuals)

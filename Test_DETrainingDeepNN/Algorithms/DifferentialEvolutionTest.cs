@@ -351,5 +351,50 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsTrue(receivedIndividuals.Contains(child));
         }
 
+        [TestMethod]
+        public void GivenAPopulationOfTwo_WhenANewPopulationIsRetrieved_ItShouldReturnTheExpectedPopulationOfTwo()
+        {
+            Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
+            IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
+
+            Individual individual1 = new Individual(fitnessEvaluationStrategy);
+            Individual child1 = new Individual(fitnessEvaluationStrategy);
+            Individual individual2 = new Individual(fitnessEvaluationStrategy);
+            Individual child2 = new Individual(fitnessEvaluationStrategy);
+
+            Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
+            ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
+
+            Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
+            IMutationStrategy mutationStrategy = mutationMock.Object;
+            
+            Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
+            selectionMock.SetupSequence(x => x.Select(It.IsAny<List<Individual>>())).Returns(child1)
+                                                                                    .Returns(individual2);
+            ISelectionStrategy selectionStrategy = selectionMock.Object;
+
+            Mock<ISelectionStrategy> otherSelectionMock = new Mock<ISelectionStrategy>();
+            ISelectionStrategy otherSelectionStrategy = otherSelectionMock.Object;
+
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
+                                                                                    crossoverStrategy,
+                                                                                    selectionStrategy,
+                                                                                    otherSelectionStrategy);
+
+
+
+            differentialEvolution.population = new List<Individual>
+            {
+                individual1, individual2
+            };
+            
+            List<Individual> newPopulation = differentialEvolution.GetNewPopulation();
+
+            Assert.AreEqual(2, newPopulation.Count);
+            Assert.IsTrue(newPopulation.Contains(child1));
+            Assert.IsTrue(newPopulation.Contains(individual2));
+            Assert.IsFalse(newPopulation.Contains(child2));
+            Assert.IsFalse(newPopulation.Contains(individual1));
+        }
     }
 }
