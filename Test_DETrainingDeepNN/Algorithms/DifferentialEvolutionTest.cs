@@ -166,7 +166,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             differentialEvolution.GetNewPopulation();
 
-            mutationMock.Verify(c => c.GetTrialVector(It.IsAny<Individual>(), It.IsAny<Individual>(), It.IsAny<Individual>()), Times.Exactly(3));
+            mutationMock.Verify(c => c.GetTrialVector(It.IsAny<Individual>(), It.IsAny<List<Individual>>()), Times.Exactly(3));
         }
 
         [TestMethod]
@@ -206,7 +206,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             differentialEvolution.GetNewPopulation();
 
-            mutationMock.Verify(c => c.GetTrialVector(target, difference1, difference2), Times.Once());
+            mutationMock.Verify(c => c.GetTrialVector(target, new List<Individual>() { difference1, difference2 }), Times.Once());
         }
 
         [TestMethod]
@@ -254,7 +254,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Individual mutant = new Individual(fitnessEvaluationStrategy);
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
-            mutationMock.Setup(x => x.GetTrialVector(It.IsAny<Individual>(), It.IsAny<Individual>(), It.IsAny<Individual>()))
+            mutationMock.Setup(x => x.GetTrialVector(It.IsAny<Individual>(), It.IsAny<List<Individual>>()))
                 .Returns(mutant);
             IMutationStrategy mutationStrategy = mutationMock.Object;
 

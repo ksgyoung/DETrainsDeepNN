@@ -74,7 +74,7 @@ namespace DETrainingDeepNN.Algorithms
                 invalidIndividuals.Add(differenceIndividual1);
                 Individual differenceIndividual2 = this.SelectDifferenceIndividual(population, invalidIndividuals);
 
-                Individual trialIndividual = mutationStrategy.GetTrialVector(target, differenceIndividual1, differenceIndividual2);
+                Individual trialIndividual = mutationStrategy.GetTrialVector(target, new List<Individual>() { differenceIndividual1, differenceIndividual2 });
                 Individual child = crossoverStrategy.Cross(individual, trialIndividual);
 
                 newPopulation.Add(generationSelectionStrategy.Select(new List<Individual> { individual, child }));

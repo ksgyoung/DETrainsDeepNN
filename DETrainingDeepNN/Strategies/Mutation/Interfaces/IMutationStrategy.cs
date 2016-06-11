@@ -8,6 +8,6 @@ namespace DETrainingDeepNN.Strategies.Mutation.Interfaces
 {
     public interface IMutationStrategy
     {
-        Individual GetTrialVector(Individual targetIndividual, Individual firstIndividual, Individual secondIndividual);
+        Individual GetTrialVector(Individual targetIndividual, List<Individual> differenceIndividuals);
     }
 }

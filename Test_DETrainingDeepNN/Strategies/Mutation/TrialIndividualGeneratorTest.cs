@@ -28,7 +28,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
             };
             
             TrialIndividualMutationStrategy generator = new TrialIndividualMutationStrategy();
-            Individual result = generator.GetTrialVector(target, individual1, individual2);
+            Individual result = generator.GetTrialVector(target, new List<Individual>() { individual1, individual2 });
 
             Assert.AreEqual(result.Position[0], 2.5);
             Assert.AreEqual(result.Position[1], 4.0);
@@ -49,6 +49,34 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
             Assert.AreEqual(result.Position[0], 0.5);
             Assert.AreEqual(result.Position[1], 1.0);
             Assert.AreEqual(result.Position[2], 2.0);
+        }
+
+        [TestMethod]
+        public void GivenListOfIndividuals_WhenTheDifference_ItShouldReturnAnIndividualWithEachDimensionBeingTheDifferenceBetweenTheSameDimensionInAllTheIndividualsInTheList()
+        {
+            Individual individual = new Individual(null)
+            {
+                Position = new double[] { 1.0, 2.0, 4.0 }
+            };
+
+            Individual individual2 = new Individual(null)
+            {
+                Position = new double[] { 3.0, 3.0, 3.0 }
+            };
+
+            Individual individual3 = new Individual(null)
+            {
+                Position = new double[] { 4.0, 5.0, 6.0 }
+            };
+
+            TrialIndividualMutationStrategy generator = new TrialIndividualMutationStrategy();
+            Individual result = generator.GetDifference(new List<Individual>() {
+                individual, individual2, individual3
+            });
+
+            Assert.AreEqual(result.Position[0], -6);
+            Assert.AreEqual(result.Position[1], -6);
+            Assert.AreEqual(result.Position[2], -5);
         }
     }
 }

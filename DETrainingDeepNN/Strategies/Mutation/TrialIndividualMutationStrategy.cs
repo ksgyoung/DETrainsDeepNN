@@ -10,10 +10,10 @@ namespace DETrainingDeepNN.Strategies.Mutation
 {
     public class TrialIndividualMutationStrategy : ITrialIndividualMutationStrategy
     {
-        public Individual GetTrialVector(Individual target, Individual first, Individual second)
+        public Individual GetTrialVector(Individual target, List<Individual> differenceIndividuals)
         {
             double scale = Double.Parse(ConfigurationManager.AppSettings["MutationScale"]);
-            Individual differenceIndividual = first - second;
+            Individual differenceIndividual = this.GetDifference(differenceIndividuals);
 
             return target + this.Scale(differenceIndividual, scale);
         }
@@ -25,6 +25,19 @@ namespace DETrainingDeepNN.Strategies.Mutation
                 Position = individual.Position.Select((x, i) => x * scale).ToArray()
             };
         }
-        
+
+        internal Individual GetDifference(List<Individual> individuals)
+        {
+            Individual difference = individuals[0];
+
+            for(int index = 1; index < individuals.Count; index ++)
+            {
+                difference -= individuals[index];
+            }
+
+            return difference;
+        }
+
+
     }
 }
