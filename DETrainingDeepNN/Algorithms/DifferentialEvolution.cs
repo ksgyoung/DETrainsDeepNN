@@ -77,6 +77,8 @@ namespace DETrainingDeepNN.Algorithms
                 Individual trialIndividual = mutationStrategy.GetTrialVector(target, new List<Individual>() { differenceIndividual1, differenceIndividual2 });
                 Individual child = crossoverStrategy.Cross(individual, trialIndividual);
 
+                child.EvaluateFitness();
+
                 newPopulation.Add(generationSelectionStrategy.Select(new List<Individual> { individual, child }));
             }
             

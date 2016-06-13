@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.Strategies.Crossover.Interfaces;
+﻿using DETrainingDeepNN.RandomGenerators;
+using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,18 +12,18 @@ namespace DETrainingDeepNN.Strategies.Crossover
     public class BinomialCrossoverStrategy : IBinomialCrossoverStrategy
     {
         private double probability;
-        private Random random;
+        private RandomGenerator random;
 
-        public BinomialCrossoverStrategy(Random random)
+        public BinomialCrossoverStrategy()
         {
             this.probability = Double.Parse(ConfigurationManager.AppSettings["CrossoverProbability"]);
-            this.random = random;
+            this.random = RandomGenerator.GetInstance();
         }
         
-        public BinomialCrossoverStrategy(Random random, double probability)
+        public BinomialCrossoverStrategy(double probability)
         {
             this.probability = probability;
-            this.random = random;
+            this.random = RandomGenerator.GetInstance();
         }
 
         public Individual Cross(Individual individual1, Individual individual2)

@@ -21,9 +21,9 @@ namespace DETrainingDeepNN
         static void Main(string[] args)
         {
             IMutationStrategy trialVectorMutationStrategy = new TrialIndividualMutationStrategy();
-            ICrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Random());
+            ICrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
             ISelectionStrategy generationSelectionStrategy = new MinimisationElitistSelectionStrategy();
-            ISelectionStrategy differenceVectorSelectionStrategy = new RandomSelectionStrategy(new Random());
+            ISelectionStrategy differenceVectorSelectionStrategy = new RandomSelectionStrategy();
             IFitnessEvaluationStrategy fitnessEvaluationStrategy = new RastriginFitnessEvaluationStrategy();
 
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(
@@ -35,6 +35,8 @@ namespace DETrainingDeepNN
                 );
 
             differentialEvolution.Run();
+
+            var population = differentialEvolution.population;
         }
     }
 }

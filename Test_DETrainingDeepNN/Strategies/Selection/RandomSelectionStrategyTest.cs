@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DETrainingDeepNN;
 using Moq;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
+using DETrainingDeepNN.RandomGenerators;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
@@ -35,10 +36,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             };
 
             Mock<Random> mock = new Mock<Random>();
-            mock.Setup(x => x.Next(It.IsAny<int>())).Returns(2);
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(2);
             Random mockedRandom = mock.Object;
 
-            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy(mockedRandom);
+            RandomGenerator.GetInstance().SetRandom(mockedRandom);
+
+            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
 
             Individual result = selectionStrategy.Select(new List<Individual>
             {
@@ -72,10 +75,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             };
 
             Mock<Random> mock = new Mock<Random>();
-            mock.Setup(x => x.Next(It.IsAny<int>())).Returns(3);
+            mock.Setup(x => x.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(3);
             Random mockedRandom = mock.Object;
 
-            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy(mockedRandom);
+            RandomGenerator.GetInstance().SetRandom(mockedRandom);
+
+            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
 
             Individual result = selectionStrategy.Select(new List<Individual>
             {
@@ -112,7 +117,9 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             mock.Setup(x => x.Next(It.IsAny<int>())).Returns(0);
             Random mockedRandom = mock.Object;
 
-            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy(mockedRandom);
+            RandomGenerator.GetInstance().SetRandom(mockedRandom);
+
+            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
 
             Individual result = selectionStrategy.Select(new List<Individual>
             {
@@ -130,7 +137,9 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             mock.Setup(x => x.Next(It.IsAny<int>())).Returns(0);
             Random mockedRandom = mock.Object;
 
-            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy(mockedRandom);
+            RandomGenerator.GetInstance().SetRandom(mockedRandom);
+
+            RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
 
             Individual result = selectionStrategy.Select(new List<Individual>());
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
+using DETrainingDeepNN.RandomGenerators;
 
 namespace DETrainingDeepNN
 {
@@ -24,13 +25,12 @@ namespace DETrainingDeepNN
         private void InitialisePosition(int dimensions)
         {
             dimensions = dimensions != 0 ? dimensions : GetDefaultDimensions();
-            Random random = new Random();
 
             Position = new double[dimensions];
 
             for(int i = 0; i < dimensions; i++)
             {
-                Position[i] = random.NextDouble() * 80;
+                Position[i] = RandomGenerator.GetInstance().NextDouble();
             }
         }
 

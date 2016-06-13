@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.Strategies.Selection.Exceptions;
+﻿using DETrainingDeepNN.RandomGenerators;
+using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using DETrainingDeepNN.Strategies.Selection.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,18 @@ namespace DETrainingDeepNN.Strategies.Selection
 {
     public class RandomSelectionStrategy : IRandomSelectionStrategy
     {
-        Random random;
+        RandomGenerator random;
 
-        public RandomSelectionStrategy(Random random)
+        public RandomSelectionStrategy()
         {
-            this.random = random;
+            this.random = RandomGenerator.GetInstance();
         }
 
         public Individual Select(List<Individual> individuals)
         {
             if (individuals.Count > 0)
             {
-                int index = random.Next(individuals.Count);
+                int index = random.NextInt(0, individuals.Count);
 
                 return individuals[index];
             }
