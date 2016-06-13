@@ -35,8 +35,21 @@ namespace DETrainingDeepNN
                 );
 
             differentialEvolution.Run();
-
+            
             var population = differentialEvolution.population;
+
+            foreach(Individual individual in population)
+            {
+                foreach (double dimension in individual.Position)
+                {
+                    Console.Write(Math.Round(dimension) + ", ");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.Read();
+
         }
     }
 }
