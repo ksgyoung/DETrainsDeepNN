@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DETrainingDeepNN.Strategies.Convolution
 {
-    public class DotProduct
+    public interface IDotProductStrategy
     {
-        
+        double Convolute(double[] imageSection, Individual filter);
     }
 }

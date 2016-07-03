@@ -18,7 +18,7 @@ namespace Test_DETrainingDeepNN
         }
 
         [TestMethod]
-        public void GivenAnIndividualIsInitialised_WhenThePositionIsRetrieved_ItShouldNotAllCOnsistOfZeros()
+        public void GivenAnIndividualIsInitialised_WhenThePositionIsRetrieved_ItShouldNotAllConsistOfZeros()
         {
             Individual individual = new Individual(null, 10);
             

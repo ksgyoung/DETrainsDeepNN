@@ -67,12 +67,15 @@
   <ItemGroup>
     <Compile Include="Algorithms\DifferentialEvolutionTest.cs" />
     <Compile Include="Models\IndividualTest.cs" />
+    <Compile Include="Models\ImageInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strategies\Convolution\DotProductTest.cs" />
+    <Compile Include="Strategies\Convolution\Exceptions\DifferingConvolutionSizeExceptionTest.cs" />
     <Compile Include="Strategies\Crossover\BinomialCrossoverTest.cs" />
     <Compile Include="Strategies\FitnessEvaluation\RastriginFitnessEvaluationStrategyTest.cs" />
     <Compile Include="Mappers\TwoDimensionalMapperTest.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualGeneratorTest.cs" />
+    <Compile Include="Strategies\Pooling\MaxPoolingTest.cs" />
     <Compile Include="Strategies\RandomGenerators\RandomGeneratorTest.cs" />
     <Compile Include="Strategies\Selection\Exceptions\NoValidIndividualsExceptionTest.cs" />
     <Compile Include="Strategies\Selection\MinimisationElitistSelectionTest.cs" />
