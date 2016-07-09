@@ -19,16 +19,13 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         [TestMethod]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndHaveTwoDimensions_ItShouldReturnTheDotProduct()
         {
-            Individual individual = new Individual(null)
-            {
-                Position = new double[] { 6.0, 2.0 }
-            };
+            double[] position = new double[] { 6.0, 2.0 };
 
             double[] subSection = { 1, 5 };
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
 
-            double result = convolutionStrategy.Convolute(subSection, individual);
+            double result = convolutionStrategy.Convolute(subSection, position);
 
             Assert.AreEqual(16, result);
         }
@@ -36,16 +33,13 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         [TestMethod]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndHaveThreeDimensions_ItShouldReturnTheDotProduct()
         {
-            Individual individual = new Individual(null)
-            {
-                Position = new double[] { 6.0, 2.0, 3.0 }
-            };
+            double[] position = new double[] { 6.0, 2.0, 3.0 };
 
             double[] subSection = { 1, 5, 7 };
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
 
-            double result = convolutionStrategy.Convolute(subSection, individual);
+            double result = convolutionStrategy.Convolute(subSection, position);
 
             Assert.AreEqual(37, result);
         }
@@ -54,32 +48,26 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         [ExpectedException(typeof(DifferingConvolutionSizeException))]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndTheIndividualIsBigger_ItShouldThrowAnDifferingConvolutionSizeExceptionError()
         {
-            Individual individual = new Individual(null)
-            {
-                Position = new double[] { 6.0, 2.0, 3.0 }
-            };
+            double[] position = new double[] { 6.0, 2.0, 3.0 };
 
             double[] subSection = { 1, 5 };
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
 
-            convolutionStrategy.Convolute(subSection, individual);
+            convolutionStrategy.Convolute(subSection, position);
         }
 
         [TestMethod]
         [ExpectedException(typeof(DifferingConvolutionSizeException))]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndTheSubsectionIsBigger_ItShouldThrowAnDifferingConvolutionSizeExceptionError()
         {
-            Individual individual = new Individual(null)
-            {
-                Position = new double[] { 6.0, 2.0 }
-            };
+            double[] position = new double[] { 6.0, 2.0 };
 
             double[] subSection = { 1, 5, 3 };
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
 
-            convolutionStrategy.Convolute(subSection, individual);
+            convolutionStrategy.Convolute(subSection, position);
         }
     }
 }

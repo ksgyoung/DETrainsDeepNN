@@ -11,6 +11,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
     [TestClass]
     public class BinomialCrossoverTest
     {
+        //TODO also seems intermittent
         [TestMethod]
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualDifferentFromTheInputs()
         {
@@ -33,6 +34,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.IsFalse(individual2.Position.SequenceEqual(result.Position));
         }
 
+        //TODO check out, intermittent test - something not mocked out properly
         [TestMethod]
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualWithPartsFromEachIndividual()
         {

@@ -8,6 +8,6 @@ namespace DETrainingDeepNN.Strategies.Convolution
 {
     public interface IDotProductStrategy
     {
-        double Convolute(double[] imageSection, Individual filter);
+        double Convolute(double[] imageSection, double[] filter);
     }
 }
