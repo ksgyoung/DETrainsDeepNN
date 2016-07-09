@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN;
 using DETrainingDeepNN.Strategies.Crossover;
 using System.Linq;
@@ -10,13 +9,14 @@ using DETrainingDeepNN.Models;
 using DETrainingDeepNN.Mappers;
 using Moq;
 using DETrainingDeepNN.Strategies.Exceptions;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Crossover
 {
-    [TestClass]
+    [TestFixture]
     public class DotProductTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndHaveTwoDimensions_ItShouldReturnTheDotProduct()
         {
             double[] position = new double[] { 6.0, 2.0 };
@@ -30,7 +30,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.AreEqual(16, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndHaveThreeDimensions_ItShouldReturnTheDotProduct()
         {
             double[] position = new double[] { 6.0, 2.0, 3.0 };
@@ -44,8 +44,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.AreEqual(37, result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DifferingConvolutionSizeException))]
+        [Test]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndTheIndividualIsBigger_ItShouldThrowAnDifferingConvolutionSizeExceptionError()
         {
             double[] position = new double[] { 6.0, 2.0, 3.0 };
@@ -53,12 +52,12 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             double[] subSection = { 1, 5 };
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
-
-            convolutionStrategy.Convolute(subSection, position);
+            
+            Assert.That(() => convolutionStrategy.Convolute(subSection, position),
+                Throws.TypeOf<DifferingConvolutionSizeException>());
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(DifferingConvolutionSizeException))]
+        [Test]
         public void GivenAnIndividualAndASubsectionOfAnImageInput_WhenTheTwoAreConvolutedAndTheSubsectionIsBigger_ItShouldThrowAnDifferingConvolutionSizeExceptionError()
         {
             double[] position = new double[] { 6.0, 2.0 };
@@ -67,7 +66,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             DotProductStrategy convolutionStrategy = new DotProductStrategy();
 
-            convolutionStrategy.Convolute(subSection, position);
+            Assert.That(() => convolutionStrategy.Convolute(subSection, position),
+                Throws.TypeOf<DifferingConvolutionSizeException>());
         }
     }
 }

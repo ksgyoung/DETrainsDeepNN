@@ -1,5 +1,5 @@
 ﻿using DETrainingDeepNN.Mappers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Test_DETrainingDeepNN.Strategies.Mappers
 {
-    [TestClass]
+    [TestFixture]
     public class TwoDimensionalMapperTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAMatrix_WhenTheArrayRepresentationIsRetrieved_ItShouldReturnTheFlattenedMatrix()
         {
             double[,] matrix = new double[4,4];
@@ -39,7 +39,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mappers
             Assert.IsTrue(Enumerable.SequenceEqual(result, arrayRepresentation));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnArray_WhenTheTwoDomensionalRepresentationIsRetrieved_ItShouldReturnTheTwoDimensioalArrayCorrectlyMapped()
         {
             double[,] matrix = new double[4, 4];

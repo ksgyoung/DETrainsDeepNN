@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Strategies.FitnessEvaluation;
 using DETrainingDeepNN;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.FitnessEvaluation
 {
-    [TestClass]
+    [TestFixture]
     public class RastriginFitnessEvaluationStrategyTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAnIndividual_WhenTheFitnessIsCalculatedUsingTheRastriginFunction_ItShouldReturnTheExpectedValue()
         {
             RastriginFitnessEvaluationStrategy rastriginCalculator = new RastriginFitnessEvaluationStrategy();

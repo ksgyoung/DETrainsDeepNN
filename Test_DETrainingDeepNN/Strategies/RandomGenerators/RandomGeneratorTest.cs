@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.RandomGenerators;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
 {
-    [TestClass]
+    [TestFixture]
     public class RandomGeneratorTest
     {
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenAnInstanceIsRetrievedTheFirstTime_ItShouldNotBeNull()
         {
             RandomGenerator instance = RandomGenerator.GetInstance();
@@ -15,7 +15,7 @@ namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
             Assert.IsNotNull(instance);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenAnInstanceIsRetrievedTheSecondTime_ItShouldReturnTheSameInstanceAsTheFirstTime()
         {
             RandomGenerator instance = RandomGenerator.GetInstance();
@@ -24,7 +24,7 @@ namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
             Assert.AreEqual(instance, secondInstance);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenANextDoubleIsRequestedWithoutParameters_ItShouldReturnADoubleBetweenZeroAndOne()
         {
             RandomGenerator.GetInstance().SetRandom(new Random());
@@ -33,7 +33,7 @@ namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
             Assert.IsTrue(random > 0 && random < 1);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenANextDoubleIsRequestedWithoutParameters_ItShouldReturnADoubleBetweenTheGivenRange()
         {
             RandomGenerator.GetInstance().SetRandom(new Random());
@@ -42,7 +42,7 @@ namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
             Assert.IsTrue(random > 2 && random < 3);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenANextIntIsRequestedWithoutParameters_ItShouldReturnAnIntBetweenZeroAndTwo()
         {
             RandomGenerator.GetInstance().SetRandom(new Random());
@@ -51,7 +51,7 @@ namespace Test_DETrainingDeepNN.Strategies.RandomGenerators
             Assert.IsTrue(random >= 0 && random <= 2);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenARandomGenerator_WhenANextIntIsRequestedWithoutParameters_ItShouldReturnAnIntBetweenTheGivenRange()
         {
             RandomGenerator.GetInstance().SetRandom(new Random());

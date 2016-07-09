@@ -1,23 +1,23 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN;
 using System.Linq;
 using Moq;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN
 {
-    [TestClass]
+    [TestFixture]
     public class IndividualTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAnIndividualIsInitialised_WhenTheFitnessIsRetrieved_ItShouldBeZero()
         {
             Individual individual = new Individual(null, 10);
             Assert.AreEqual(individual.Fitness, 0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnIndividualIsInitialised_WhenThePositionIsRetrieved_ItShouldNotAllConsistOfZeros()
         {
             Individual individual = new Individual(null, 10);
@@ -27,7 +27,7 @@ namespace Test_DETrainingDeepNN
             Assert.AreNotEqual(sumOfPositions, 0.0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTwoIndividuals_WhenTheyAreAddedUsingThePlusOperator_ItShouldResultInANewIndividualWithTheSumOfEachDimension()
         {
             Individual individual1 = new Individual(null)
@@ -47,7 +47,7 @@ namespace Test_DETrainingDeepNN
             Assert.AreEqual(result.Position[2], 9.0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTwoIndividuals_WhenTheyAreSubstracterUsingTheMinusOperator_ItShouldResultInANewIndividualWithTheDifferenceOfEachDimension()
         {
             Individual individual1 = new Individual(null)
@@ -67,7 +67,7 @@ namespace Test_DETrainingDeepNN
             Assert.AreEqual(result.Position[2], 2.0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnIndividualIsInitialised_WhenTheFitnessIsEvaluated_ItShouldReturnTheValueCalculatedByTheFitnessEvaluationStrategy()
         {
             Mock<IFitnessEvaluationStrategy> mock = new Mock<IFitnessEvaluationStrategy>();

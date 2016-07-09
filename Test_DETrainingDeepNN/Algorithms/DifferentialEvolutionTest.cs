@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Algorithms;
 using DETrainingDeepNN;
 using System.Collections.Generic;
@@ -9,15 +8,16 @@ using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;
 using DETrainingDeepNN.Algorithms.Interfaces;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Algorithms
 {
-    [TestClass]
+    [TestFixture]
     public class DifferentialEvolutionTest
     {
         public Mock ISelection { get; private set; }
         
-        [TestMethod]
+        [Test]
         public void GivenADifferentialEvolutionAlgorithm_WhenThePopulationIsInitialisedWithAPopulationSizeOfTen_ItShouldReturnAPopulationOfTenIndividuals()
         {
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null, null);
@@ -27,7 +27,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.AreEqual(10, population.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfThreeAndAnInvalidIndividual_WhenTheGettingTheDifferenceIndividual_ItShouldCallTheSelectionStrategyWithAPopulationExcludingTheInvalidIndividual()
         {
             Individual individual1 = new Individual(null)
@@ -71,7 +71,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsTrue(resultingPopulation.Contains(individual3));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheEvaluateMethodThreeTimes()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -106,7 +106,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             fitnessEvaluationMock.Verify(c => c.GetFitnessForIndividual(It.IsAny<Individual>()), Times.Exactly(3 * 2));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheEvaluateMethodWithTheIndividualAsAParameter()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -141,7 +141,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             fitnessEvaluationMock.Verify(c => c.GetFitnessForIndividual(It.Is<Individual>(p => p == individual)));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheMutationStrategyThreeTimes()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -175,7 +175,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             mutationMock.Verify(c => c.GetTrialVector(It.IsAny<Individual>(), It.IsAny<List<Individual>>()), Times.Exactly(3));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfFour_WhenANewPopulationIsRetrieved_ItShouldCallTheMutationStrategyWithThreeDifferentIndividuals()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -217,7 +217,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             mutationMock.Verify(c => c.GetTrialVector(target, new List<Individual>() { difference1, difference2 }), Times.Once());
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheCrossoverStrategyThreeTimes()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -251,7 +251,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             crossoverMock.Verify(c => c.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()), Times.Exactly(3));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheCrossoverStrategyWithTheIndividualAndTheTrialIndividual()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -291,7 +291,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             crossoverMock.Verify(c => c.Cross(individual, mutant), Times.Once());
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfThree_WhenANewPopulationIsRetrieved_ItShouldCallTheSelectionStrategyThreeTimes()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -331,7 +331,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             otherSelectionMock.Verify(c => c.Select(It.IsAny<List<Individual>>()), Times.Exactly(3));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfOne_WhenANewPopulationIsRetrieved_ItShouldCallTheSelectionStrategyWithTheIndividualAndTheChild()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -374,7 +374,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsTrue(receivedIndividuals.Contains(child));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAPopulationOfTwo_WhenANewPopulationIsRetrieved_ItShouldReturnTheExpectedPopulationOfTwo()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -423,7 +423,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsFalse(newPopulation.Contains(individual1));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenADifferentialEvolutionAlgorithm_WhenTheAlgorithmIsRun_ItShouldResultInAPopulationWithAtLeastOneIndividual()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
@@ -452,7 +452,7 @@ namespace Test_DETrainingDeepNN.Algorithms
             Assert.IsTrue(differentialEvolution.population.Count > 0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenFiveIterationsAndThreeIndividuals_WhenTheAlgorithmIsRun_ItShouldCallTheCrossoverStrategyFifteenTimes()
         {
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();

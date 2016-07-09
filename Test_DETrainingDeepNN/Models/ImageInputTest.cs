@@ -1,16 +1,16 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Mappers;
 using Moq;
 using DETrainingDeepNN.Models;
 using System.Linq;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Models
 {
-    [TestClass]
+    [TestFixture]
     public class ImageInputTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAnIImageInputIsInitialised_WhenThePositionIsRetrieved_ItShouldUseTheMapperToReturnAnArrayRepresentation()
         {
             Mock<ITwoDimensionalMapper> mapperMock = new Mock<ITwoDimensionalMapper>();
@@ -22,7 +22,7 @@ namespace Test_DETrainingDeepNN.Models
             mapperMock.Verify(c => c.GetArrayRepresentation(It.IsAny<double[,]>()), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnIImageInput_WhenTheImageInputNumericRepresentationIsSet_ItShouldReturnTheSetDataWhenRetrieved()
         {
             ImageInput imageInput = new ImageInput(new TwoDimensionalMapper());

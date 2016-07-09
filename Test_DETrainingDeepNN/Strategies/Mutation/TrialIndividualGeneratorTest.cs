@@ -1,15 +1,15 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN;
 using System.Collections.Generic;
 using DETrainingDeepNN.Strategies.Mutation;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Mutation
 {
-    [TestClass]
+    [TestFixture]
     public class TriaIndividualGeneratorTest
     {
-        [TestMethod]
+        [Test]
         public void GivenThreeIndividuals_WhenTheTrialIndividualIsGenerated_ItShouldReturnTheTargetIndividualAddedToTheScaledDifferenceOfTheOtherIndividuals()
         {
             Individual target = new Individual(null)
@@ -35,7 +35,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
             Assert.AreEqual(result.Position[2], 4.5);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnIndividual_WhenTheIndividualIsScaled_ItShouldReturnAnIndividualWithEachDimensionScaled()
         {
             Individual individual = new Individual(null)
@@ -51,7 +51,7 @@ namespace Test_DETrainingDeepNN.Strategies.Mutation
             Assert.AreEqual(result.Position[2], 2.0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenListOfIndividuals_WhenTheDifference_ItShouldReturnAnIndividualWithEachDimensionBeingTheDifferenceBetweenTheSameDimensionInAllTheIndividualsInTheList()
         {
             Individual individual = new Individual(null)

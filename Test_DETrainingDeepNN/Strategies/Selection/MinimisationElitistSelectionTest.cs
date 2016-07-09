@@ -3,16 +3,16 @@ using System.Text;
 using System.Collections.Generic;
 using DETrainingDeepNN.Strategies.Selection;
 using DETrainingDeepNN;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
-    [TestClass]
+    [TestFixture]
     public class MinimisationElitistSelectionTest
     {
-        [TestMethod]
+        [Test]
         public void GivenTwoIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
             Individual individual1 = new Individual(null)
@@ -34,7 +34,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual2, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThreeIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
             Individual individual1 = new Individual(null)
@@ -61,7 +61,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual2, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTwoIndividualsWithTheSameFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheFirtsOfTheTwoIndividuals()
         {
             Individual individual1 = new Individual(null)
@@ -83,13 +83,13 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual1, result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NoValidIndividualsException))]
+        [Test]
         public void GivenNoIndividuals_WhenTheRandomSelectionStrategyIsUsed_ItShouldReturnNull()
         {
             MinimisationElitistSelectionStrategy selectionStrategy = new MinimisationElitistSelectionStrategy();
-
-            Individual result = selectionStrategy.Select(new List<Individual>());
+            
+            Assert.That(() => selectionStrategy.Select(new List<Individual>()),
+                Throws.TypeOf<NoValidIndividualsException>());
         }
     }
 }

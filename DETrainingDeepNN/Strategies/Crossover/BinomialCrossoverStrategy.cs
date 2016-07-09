@@ -34,7 +34,8 @@ namespace DETrainingDeepNN.Strategies.Crossover
             
             for (int index = 0; index < length; index++)
             {
-                newPosition[index] = random.NextDouble() > probability 
+                double test = random.NextDouble();
+                newPosition[index] = test > probability 
                     ? individual1.Position[index] 
                     : individual2.Position[index];
             }

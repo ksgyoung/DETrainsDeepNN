@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Strategies.Pooling;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Pooling
 {
-    [TestClass]
+    [TestFixture]
     public class MaxPoolingTest
     {
-        [TestMethod]
+        [Test]
         public void GivenAnArrayOfValues_WhenMaxPoolingIsApplied_ItShouldReturnTheLargestOfTheNumbers()
         {
             double[] dataToPool = { 1.0, 6.0, 3.0, 4.0 };
@@ -17,7 +17,7 @@ namespace Test_DETrainingDeepNN.Strategies.Pooling
             Assert.AreEqual(6.0, poolingStrategy.GetPooledResult(dataToPool));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAnArrayOfTheSameValue_WhenMaxPoolingIsApplied_ItShouldReturnTheValue()
         {
             double[] dataToPool = { 1.0, 1.0, 1.0, 1.0 };

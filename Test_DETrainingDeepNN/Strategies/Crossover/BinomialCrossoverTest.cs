@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN;
 using DETrainingDeepNN.Strategies.Crossover;
 using System.Linq;
+using Moq;
+using DETrainingDeepNN.RandomGenerators;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Crossover
 {
-    [TestClass]
+    [TestFixture]
     public class BinomialCrossoverTest
     {
-        //TODO also seems intermittent
-        [TestMethod]
+        private void MockRandom()
+        {
+            Mock<Random> mock = new Mock<Random>();
+            mock.SetupSequence(x => x.NextDouble()).Returns(0.3)
+                                                   .Returns(0.7)
+                                                   .Returns(0.8);
+
+            RandomGenerator.GetInstance().SetRandom(mock.Object);
+        }
+
+        [Test]
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualDifferentFromTheInputs()
         {
 
@@ -26,6 +37,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
+            MockRandom();
+
             BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
@@ -33,9 +46,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.IsFalse(individual1.Position.SequenceEqual(result.Position));
             Assert.IsFalse(individual2.Position.SequenceEqual(result.Position));
         }
-
-        //TODO check out, intermittent test - something not mocked out properly
-        [TestMethod]
+        
+        [Test]
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualWithPartsFromEachIndividual()
         {
 
@@ -48,6 +60,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
+
+            MockRandom();
 
             BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
 
@@ -71,7 +85,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.IsTrue(totalFromIndividual2 > 0);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAprobabilityOfZero_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
@@ -85,6 +99,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
+            MockRandom();
+
             BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(0.0);
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
@@ -92,7 +108,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             Assert.IsTrue(individual1.Position.SequenceEqual(result.Position));
         }
 
-        [TestMethod]
+        [Test]
         public void GivenAprobabilityOfOne_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
@@ -105,6 +121,8 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
+
+            MockRandom();
 
             BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(1.0);
 

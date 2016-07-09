@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using DETrainingDeepNN.Strategies.Exceptions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Test_DETrainingDeepNN.Strategies.Convolution.Exceptions
 {

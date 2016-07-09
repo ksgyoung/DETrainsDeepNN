@@ -1,18 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DETrainingDeepNN.Strategies.Selection;
 using System.Collections.Generic;
 using DETrainingDeepNN;
 using Moq;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using DETrainingDeepNN.RandomGenerators;
+using NUnit.Framework;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
-    [TestClass]
+    [TestFixture]
     public class RandomSelectionStrategyTest
     {
-        [TestMethod]
+        [Test]
         public void GivenFourIndividuals_WhenTheIndividualIsSelectedUsingTheRandomSelectionStrategy_ItShouldReturnAARandomIndividual()
         {
             Individual individual1 = new Individual(null)
@@ -51,7 +51,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual3, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenFourIndividuals_WhenTheRandomIndexIsThatOfTheLastIndividual_ItShouldReturnTheLastIndividual()
         {
             Individual individual1 = new Individual(null)
@@ -90,7 +90,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual4, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GivenFourIndividuals_WhenTheRandomIndexIsThatOfTheFirstIndividual_ItShouldReturnTheFirstIndividual()
         {
             Individual individual1 = new Individual(null)
@@ -129,8 +129,7 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             Assert.AreEqual(individual1, result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NoValidIndividualsException))]
+        [Test]
         public void GivenNoIndividuals_WhenTheRandomSelectionStrategyIsUsed_ItShouldReturnNull()
         {
             Mock<Random> mock = new Mock<Random>();
@@ -140,8 +139,9 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
             RandomGenerator.GetInstance().SetRandom(mockedRandom);
 
             RandomSelectionStrategy selectionStrategy = new RandomSelectionStrategy();
-
-            Individual result = selectionStrategy.Select(new List<Individual>());
+            
+            Assert.That(() => selectionStrategy.Select(new List<Individual>()),
+                Throws.TypeOf<NoValidIndividualsException>());
         }
     }
 }
