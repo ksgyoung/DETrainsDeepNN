@@ -23,7 +23,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             double[] subSection = { 1, 5 };
 
-            DotProductStrategy convolutionStrategy = new DotProductStrategy();
+            DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
             double result = convolutionStrategy.Convolute(subSection, position);
 
@@ -37,7 +37,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             double[] subSection = { 1, 5, 7 };
 
-            DotProductStrategy convolutionStrategy = new DotProductStrategy();
+            DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
             double result = convolutionStrategy.Convolute(subSection, position);
 
@@ -51,7 +51,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             double[] subSection = { 1, 5 };
 
-            DotProductStrategy convolutionStrategy = new DotProductStrategy();
+            DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
             
             Assert.That(() => convolutionStrategy.Convolute(subSection, position),
                 Throws.TypeOf<DifferingConvolutionSizeException>());
@@ -64,7 +64,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             double[] subSection = { 1, 5, 3 };
 
-            DotProductStrategy convolutionStrategy = new DotProductStrategy();
+            DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
             Assert.That(() => convolutionStrategy.Convolute(subSection, position),
                 Throws.TypeOf<DifferingConvolutionSizeException>());

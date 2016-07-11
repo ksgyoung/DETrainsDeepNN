@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DETrainingDeepNN.Strategies.Convolution
 {
-    public class DotProductStrategy : IDotProductStrategy
+    public class DotProductConvolutionStrategy : IDotProductConvolutionStrategy
     {
         public double Convolute(double[] imageSection, double[] filter)
         {

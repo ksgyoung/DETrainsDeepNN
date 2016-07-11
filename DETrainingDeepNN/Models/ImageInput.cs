@@ -11,6 +11,8 @@ namespace DETrainingDeepNN.Models
     {
         private ITwoDimensionalMapper mapper;
         private double[,] Matrix;
+        public int TotalRows { get; set; }
+        public int TotalColumns { get; set; }
 
         public ImageInput(ITwoDimensionalMapper mapper) {
             this.mapper = mapper;
@@ -24,6 +26,8 @@ namespace DETrainingDeepNN.Models
         public void SetNumericRepresentation(double[,] numericRepresentation)
         {
             Matrix = numericRepresentation;
+            TotalRows = numericRepresentation.GetLength(1);
+            TotalColumns = numericRepresentation.GetLength(0);
         }
         
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Strategies.Convolution
+namespace DETrainingDeepNN.Strategies.Convolution.Interfaces
 {
-    public interface IDotProductStrategy
+    public interface IConvolutionStrategy
     {
         double Convolute(double[] imageSection, double[] filter);
     }

@@ -40,6 +40,40 @@ namespace Test_DETrainingDeepNN.Models
 
             Assert.IsTrue(result.SequenceEqual(expected));
         }
-        
+
+        [Test]
+        public void GivenAnIImageInput_WhenTheImageInputNumericRepresentationIsSet_ItShouldSetTheTotalRows()
+        {
+            ImageInput imageInput = new ImageInput(new TwoDimensionalMapper());
+
+            double[,] numericRepresentation = new double[2, 2];
+            numericRepresentation[0, 0] = 1;
+            numericRepresentation[0, 1] = 2;
+            numericRepresentation[1, 0] = 3;
+            numericRepresentation[1, 1] = 4;
+
+            imageInput.SetNumericRepresentation(numericRepresentation);
+            
+            Assert.AreEqual(2, imageInput.TotalRows);
+        }
+
+        [Test]
+        public void GivenAnIImageInput_WhenTheImageInputNumericRepresentationIsSet_ItShouldSetTheTotalColumns()
+        {
+            ImageInput imageInput = new ImageInput(new TwoDimensionalMapper());
+
+            double[,] numericRepresentation = new double[3, 2];
+            numericRepresentation[0, 0] = 1;
+            numericRepresentation[0, 1] = 2;
+            numericRepresentation[1, 0] = 3;
+            numericRepresentation[1, 1] = 4;
+            numericRepresentation[2, 0] = 5;
+            numericRepresentation[2, 1] = 6;
+
+            imageInput.SetNumericRepresentation(numericRepresentation);
+
+            Assert.AreEqual(3, imageInput.TotalColumns);
+        }
+
     }
 }

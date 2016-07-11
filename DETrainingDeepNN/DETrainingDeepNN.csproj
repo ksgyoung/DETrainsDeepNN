@@ -62,13 +62,16 @@
     <Compile Include="Algorithms\interfaces\IDifferentialEvolution.cs" />
     <Compile Include="Mappers\Interfaces\ITwoDimensionalMapper.cs" />
     <Compile Include="Mappers\TwoDimensionalMapper.cs" />
+    <Compile Include="Models\ImageIndividual.cs" />
     <Compile Include="Models\ImageInput.cs" />
     <Compile Include="Models\Individual.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGenerators\RandomGenerator.cs" />
-    <Compile Include="Strategies\Convolution\DotProductStrategy.cs" />
-    <Compile Include="Strategies\Convolution\Interfaces\IDotProductStrategy.cs" />
+    <Compile Include="Strategies\Convolution\DotProductConvolutionStrategy.cs" />
+    <Compile Include="Strategies\Convolution\Interfaces\IConvolutionStrategy.cs" />
+    <Compile Include="Strategies\Convolution\Interfaces\IDotProductConvolutionStrategy.cs" />
     <Compile Include="Strategies\Crossover\BinomialCrossoverStrategy.cs" />
     <Compile Include="Strategies\Crossover\Interfaces\IBinomialCrossoverStrategy.cs" />
     <Compile Include="Strategies\Crossover\Interfaces\ICrossoverStrategy.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Strategies\Mutation\Interfaces\ITrialIndividualMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\Interfaces\IMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualMutationStrategy.cs" />
+    <Compile Include="Strategies\NeuronActivation\FeatureMapNeuronActivationStrategy.cs" />
     <Compile Include="Strategies\Pooling\Interfaces\IMaxPoolingStrategy.cs" />
     <Compile Include="Strategies\Pooling\MaxPoolingStrategy.cs" />
     <Compile Include="Strategies\Selection\Exceptions\NoValidIndividualsException.cs" />
