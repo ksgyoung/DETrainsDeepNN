@@ -17,7 +17,7 @@ namespace DETrainingDeepNN.Models
         public ImageInput(ITwoDimensionalMapper mapper) {
             this.mapper = mapper;
         }
-
+        
         public double[] GetNumericRepresentation()
         {
             return this.mapper.GetArrayRepresentation(Matrix);
