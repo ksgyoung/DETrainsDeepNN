@@ -8,6 +8,13 @@ namespace DETrainingDeepNN.Mappers
 {
     public class TwoDimensionalMapper : ITwoDimensionalMapper
     {
+        private IndexCalculator indexCalculator;
+
+        public TwoDimensionalMapper()
+        {
+            indexCalculator = new IndexCalculator();
+        }
+
         public double[] GetArrayRepresentation(double[,] matrix)
         {
             int width = matrix.GetLength(0);
@@ -19,7 +26,7 @@ namespace DETrainingDeepNN.Mappers
             {
                 for (int w = 0; w < height; w++)
                 {
-                    int index = GetIndex(width, w, h);
+                    int index = indexCalculator.GetIndex(width, w, h);
                     arrayRepresentation[index] = matrix[h, w];
                 }
             }
@@ -37,7 +44,7 @@ namespace DETrainingDeepNN.Mappers
             {
                 for (int w = 0; w < height; w++)
                 {
-                    int index = GetIndex(width, w, h);
+                    int index = indexCalculator.GetIndex(width, w, h);
                     matrix[h, w] = arrayRepresentation[index];
                 }
 
@@ -45,10 +52,6 @@ namespace DETrainingDeepNN.Mappers
 
             return matrix;
         }
-
-        private int GetIndex(int width, int xlocation, int yLocation)
-        {
-            return (width * yLocation) + xlocation;
-        }
+        
     }
 }

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\DifferentialEvolution.cs" />
     <Compile Include="Algorithms\interfaces\IDifferentialEvolution.cs" />
+    <Compile Include="Mappers\IndexCalculator.cs" />
     <Compile Include="Mappers\Interfaces\ITwoDimensionalMapper.cs" />
     <Compile Include="Mappers\TwoDimensionalMapper.cs" />
     <Compile Include="Models\ImageIndividual.cs" />

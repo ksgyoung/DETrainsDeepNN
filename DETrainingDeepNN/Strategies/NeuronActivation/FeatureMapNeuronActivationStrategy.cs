@@ -12,27 +12,26 @@ namespace DETrainingDeepNN.Strategies.NeuronActivation
     public class FeatureMapNeuronActivationStrategy
     {
         private IConvolutionStrategy ConvolutionStrategy;
+        private IndexCalculator indexCalculator;
 
         public FeatureMapNeuronActivationStrategy(IConvolutionStrategy convolutionStrategy)
         {
             this.ConvolutionStrategy = convolutionStrategy;
+            indexCalculator = new IndexCalculator();
         }
+
+        //TODO get slide and convolve - to build Feature map
 
         internal double ConvolveSubSection(ImageInput inputSubsection, double[] filter)
         {
             return this.ConvolutionStrategy.Convolute(inputSubsection.GetNumericRepresentation(), filter);
         }
-
-        private int GetIndex(int width, int xlocation, int yLocation)
-        {
-            return (width * yLocation) + xlocation;
-        }
-
+        
         internal double[] GetSlide(ImageInput input, int filterWidth, int filterHeight, Position position)
         {
             position.SlideForward();
 
-            int initialIndex = GetIndex(filterWidth, position.X, position.Y);
+            int initialIndex = indexCalculator.GetIndex(filterWidth, position.X, position.Y);
             int skipCount = initialIndex;
             int filterDimensions = filterWidth * filterHeight;
             int maximumIndex = filterDimensions + initialIndex + filterHeight;
