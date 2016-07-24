@@ -7,6 +7,7 @@ using System.Linq;
 using Moq;
 using DETrainingDeepNN.RandomGenerators;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Strategies.Crossover
 {
@@ -27,19 +28,19 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualDifferentFromTheInputs()
         {
 
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
             MockRandom();
 
-            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Configuration());
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -51,19 +52,19 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAnTwoIndividuals_WhenTheyAreCombined_ItShouldReturnAnIndividualWithPartsFromEachIndividual()
         {
 
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
             MockRandom();
 
-            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Configuration());
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -89,19 +90,19 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAprobabilityOfZero_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
             MockRandom();
 
-            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(0.0);
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Configuration(), 0.0);
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 
@@ -112,19 +113,19 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
         public void GivenAprobabilityOfOne_WhenIndividualsAreCrossed_ItShouldReturnAnIndividualWithThePositionOfIndividualOne()
         {
 
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 9.0, 11.0, 11.0 }
             };
 
             MockRandom();
 
-            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(1.0);
+            BinomialCrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(new Configuration(), 1.0);
 
             Individual result = crossoverStrategy.Cross(individual1, individual2);
 

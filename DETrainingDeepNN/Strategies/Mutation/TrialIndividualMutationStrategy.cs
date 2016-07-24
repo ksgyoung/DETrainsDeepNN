@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.Strategies.Mutation.Interfaces;
+﻿using DETrainingDeepNN.ConfigurationSettings;
+using DETrainingDeepNN.Strategies.Mutation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,9 +11,17 @@ namespace DETrainingDeepNN.Strategies.Mutation
 {
     public class TrialIndividualMutationStrategy : ITrialIndividualMutationStrategy
     {
-        public Individual GetTrialVector(Individual target, List<Individual> differenceIndividuals)
+        private IConfiguration configuration;
+
+        public TrialIndividualMutationStrategy(IConfiguration configuration)
         {
-            double scale = Double.Parse(ConfigurationManager.AppSettings["MutationScale"]);
+            this.configuration = configuration;
+        }
+
+        public Individual GetTrialVector(Individual target, 
+                            List<Individual> differenceIndividuals)
+        {
+            double scale = Double.Parse(configuration.GetValue("MutationScale"));
             Individual differenceIndividual = this.GetDifference(differenceIndividuals);
 
             return target + this.Scale(differenceIndividual, scale);

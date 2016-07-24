@@ -58,8 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Convolution.cs" />
     <Compile Include="Algorithms\DifferentialEvolution.cs" />
+    <Compile Include="Algorithms\interfaces\IConvolution.cs" />
     <Compile Include="Algorithms\interfaces\IDifferentialEvolution.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Mappers\IndexCalculator.cs" />
     <Compile Include="Mappers\Interfaces\ITwoDimensionalMapper.cs" />
     <Compile Include="Mappers\TwoDimensionalMapper.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="Strategies\Mutation\Interfaces\IMutationStrategy.cs" />
     <Compile Include="Strategies\Mutation\TrialIndividualMutationStrategy.cs" />
     <Compile Include="Strategies\NeuronActivation\FeatureMapNeuronActivationStrategy.cs" />
+    <Compile Include="Strategies\NeuronActivation\Interfaces\IFeatureMapNeuronActivationStrategy.cs" />
     <Compile Include="Strategies\Pooling\Interfaces\IMaxPoolingStrategy.cs" />
     <Compile Include="Strategies\Pooling\MaxPoolingStrategy.cs" />
     <Compile Include="Strategies\Selection\Exceptions\NoValidIndividualsException.cs" />

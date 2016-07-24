@@ -3,7 +3,7 @@ using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using DETrainingDeepNN.Strategies.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test_DETrainingDeepNN.Strategies.Convolution.Exceptions
+namespace Test_DETrainingDeepNN.Strategies.ConvolutionStrategies.Exceptions
 {
     [TestClass]
     public class DifferingConvolutionSizeExceptionTest

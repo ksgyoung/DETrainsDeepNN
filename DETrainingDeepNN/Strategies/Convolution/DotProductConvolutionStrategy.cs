@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Strategies.Convolution
+namespace DETrainingDeepNN.Strategies.ConvolutionStrategies
 {
     public class DotProductConvolutionStrategy : IDotProductConvolutionStrategy
     {
-        public double Convolute(double[] imageSection, double[] filter)
+        public double Calculate(double[] imageSection, double[] filter)
         {
             if(filter.Length != imageSection.Length)
             {

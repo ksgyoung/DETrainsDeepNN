@@ -1,7 +1,8 @@
 ﻿using DETrainingDeepNN;
+using DETrainingDeepNN.ConfigurationSettings;
 using DETrainingDeepNN.Mappers;
 using DETrainingDeepNN.Models;
-using DETrainingDeepNN.Strategies.Convolution;
+using DETrainingDeepNN.Strategies.ConvolutionStrategies;
 using DETrainingDeepNN.Strategies.NeuronActivation;
 using Moq;
 using NUnit.Framework;
@@ -16,7 +17,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         private IDotProductConvolutionStrategy MockDotProduct()
         {
             Mock<IDotProductConvolutionStrategy> mock = new Mock<IDotProductConvolutionStrategy>();
-            mock.SetupSequence(x => x.Convolute(It.IsAny<double[]>(), It.IsAny<double[]>()))
+            mock.SetupSequence(x => x.Calculate(It.IsAny<double[]>(), It.IsAny<double[]>()))
                                                 .Returns(0.3).Returns(2.7)
                                                 .Returns(6.2).Returns(1.9)
                                                 .Returns(3.4).Returns(0.8)
@@ -40,16 +41,16 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             input.SetNumericRepresentation(inputSubsection);
 
             Mock<IDotProductConvolutionStrategy> dotProductMock = new Mock<IDotProductConvolutionStrategy>();
-            dotProductMock.SetupSequence(x => x.Convolute(It.IsAny<double[]>(), It.IsAny<double[]>()))
+            dotProductMock.SetupSequence(x => x.Calculate(It.IsAny<double[]>(), It.IsAny<double[]>()))
                                                 .Returns(0.3).Returns(2.7)
                                                 .Returns(6.2).Returns(1.9)
                                                 .Returns(3.4).Returns(0.8);
             
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(dotProductMock.Object);
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(dotProductMock.Object, new Configuration());
 
             double part = strategy.ConvolveSubSection(input.GetNumericRepresentation(), filter);
 
-            dotProductMock.Verify(c => c.Convolute(It.IsAny<double[]>(), It.IsAny<double[]>()), Times.Exactly(1));
+            dotProductMock.Verify(c => c.Calculate(It.IsAny<double[]>(), It.IsAny<double[]>()), Times.Exactly(1));
         }
 
         [Test]
@@ -66,7 +67,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             ImageInput input = new ImageInput(new TwoDimensionalMapper());
             input.SetNumericRepresentation(inputSubsection);
 
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             double part = strategy.ConvolveSubSection(input.GetNumericRepresentation(), filter);
 
@@ -76,7 +77,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             Position position = new Position(0, 0, 1);
             double[,] matrix = new double[4, 4];
@@ -100,7 +101,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             ImageInput input = new ImageInput(new TwoDimensionalMapper());
             input.SetNumericRepresentation(matrix);
 
-            double[] slide = strategy.GetSlide(input, 2, 2, position);
+            double[] slide = strategy.GetSlide(input, position);
             double[] expected = { 1, 2, 5, 6 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
@@ -109,7 +110,10 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAFourByFourInputAndAThreeByThreeFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
+            configuration.Setup(x => x.GetValue(It.IsAny<String>())).Returns("3");
+
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), configuration.Object);
 
             Position position = new Position(0, 0, 1);
 
@@ -133,8 +137,8 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             ImageInput input = new ImageInput(new TwoDimensionalMapper());
             input.SetNumericRepresentation(matrix);
-
-            double[] slide = strategy.GetSlide(input, 3, 3, position);
+            
+            double[] slide = strategy.GetSlide(input, position);
             double[] expected = { 1, 2, 3, 5, 6, 7, 9, 10, 11 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
@@ -143,7 +147,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAThreeByThreeInputAndATwoByTwoFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             Position position = new Position(0, 0, 1);
 
@@ -161,7 +165,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             ImageInput input = new ImageInput(new TwoDimensionalMapper());
             input.SetNumericRepresentation(matrix);
 
-            double[] slide = strategy.GetSlide(input, 2, 2, position);
+            double[] slide = strategy.GetSlide(input, position);
             double[] expected = { 1, 2, 4, 5 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
@@ -170,7 +174,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheFilterIsSlidFromTheEnd_ItShouldReturnARepresentationOfTheLeftestSectionOneLevelDown()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             Position position = new Position(2, 0, 1);
 
@@ -195,7 +199,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             ImageInput input = new ImageInput(new TwoDimensionalMapper());
             input.SetNumericRepresentation(matrix);
 
-            double[] slide = strategy.GetSlide(input, 2, 2, position);
+            double[] slide = strategy.GetSlide(input, position);
             double[] expected = { 4, 5, 8, 9 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
@@ -204,7 +208,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheNeuronIsActivated_ItShouldReturnAFeatureMap()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             double[,] matrix = new double[3, 3];
             matrix[0, 0] = 0;
@@ -222,7 +226,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             double[] mockFilter = new double[4];
 
-            double[] featureMap = strategy.Activate(input, mockFilter, 2);
+            double[] featureMap = strategy.Activate(input, mockFilter);
             double[] expected = { 0.3, 2.7, 6.2, 1.9 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, featureMap));
@@ -231,7 +235,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
         [Test]
         public void GivenAThreeByThreeInputAndATwoByTwoFilter_WhenTheNeuronIsActivated_ItShouldReturnAFeatureMap()
         {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct());
+            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
 
             double[,] matrix = new double[4, 4];
             matrix[0, 0] = 0;
@@ -256,7 +260,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             double[] mockFilter = new double[4];
 
-            double[] featureMap = strategy.Activate(input, mockFilter, 2);
+            double[] featureMap = strategy.Activate(input, mockFilter);
             double[] expected = { 0.3, 2.7, 6.2, 1.9, 3.4, 0.8, 1.7, 3.5, 4.8 };
 
             Assert.IsTrue(Enumerable.SequenceEqual(expected, featureMap));

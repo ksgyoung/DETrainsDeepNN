@@ -2,6 +2,7 @@
 using DETrainingDeepNN.Strategies.FitnessEvaluation;
 using DETrainingDeepNN;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Strategies.FitnessEvaluation
 {
@@ -13,7 +14,7 @@ namespace Test_DETrainingDeepNN.Strategies.FitnessEvaluation
         {
             RastriginFitnessEvaluationStrategy rastriginCalculator = new RastriginFitnessEvaluationStrategy();
 
-            Individual individual = new Individual(null)
+            Individual individual = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };

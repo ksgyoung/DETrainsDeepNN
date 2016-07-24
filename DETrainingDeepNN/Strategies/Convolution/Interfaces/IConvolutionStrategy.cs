@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Strategies.Convolution.Interfaces
+namespace DETrainingDeepNN.Strategies.ConvolutionStrategies.Interfaces
 {
     public interface IConvolutionStrategy
     {
-        double Convolute(double[] imageSection, double[] filter);
+        double Calculate(double[] imageSection, double[] filter);
     }
 }

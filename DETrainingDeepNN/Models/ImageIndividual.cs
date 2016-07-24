@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace DETrainingDeepNN.Models
 {
@@ -15,8 +16,9 @@ namespace DETrainingDeepNN.Models
 
         public ImageIndividual(ITwoDimensionalMapper mapper, 
                                IFitnessEvaluationStrategy fitnessEvaluationStrategy, 
+                               IConfiguration configuration,
                                int dimensions = 0) 
-            : base(fitnessEvaluationStrategy, dimensions)
+            : base(fitnessEvaluationStrategy, configuration, dimensions)
         {
             this.mapper = mapper;
         }

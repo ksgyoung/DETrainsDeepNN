@@ -6,6 +6,7 @@ using DETrainingDeepNN;
 using Moq;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
@@ -15,12 +16,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenTwoIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
@@ -37,17 +38,17 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenThreeIndividualsWithDifferingFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheIndividualWithTheLowerFitness()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual3 = new Individual(null)
+            Individual individual3 = new Individual(null, new Configuration())
             {
                 Fitness = 1.444
             };
@@ -64,12 +65,12 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenTwoIndividualsWithTheSameFitnesses_WhenTheMinimisationElitistSelectionIsUsed_ItShouldReturnTheFirtsOfTheTwoIndividuals()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DETrainingDeepNN;
 using DETrainingDeepNN.Strategies.Crossover;
 using System.Linq;
-using DETrainingDeepNN.Strategies.Convolution;
+using DETrainingDeepNN.Strategies.ConvolutionStrategies;
 using DETrainingDeepNN.Models;
 using DETrainingDeepNN.Mappers;
 using Moq;
@@ -25,7 +25,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
-            double result = convolutionStrategy.Convolute(subSection, position);
+            double result = convolutionStrategy.Calculate(subSection, position);
 
             Assert.AreEqual(16, result);
         }
@@ -39,7 +39,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
-            double result = convolutionStrategy.Convolute(subSection, position);
+            double result = convolutionStrategy.Calculate(subSection, position);
 
             Assert.AreEqual(37, result);
         }
@@ -53,7 +53,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
             
-            Assert.That(() => convolutionStrategy.Convolute(subSection, position),
+            Assert.That(() => convolutionStrategy.Calculate(subSection, position),
                 Throws.TypeOf<DifferingConvolutionSizeException>());
         }
 
@@ -66,7 +66,7 @@ namespace Test_DETrainingDeepNN.Strategies.Crossover
 
             DotProductConvolutionStrategy convolutionStrategy = new DotProductConvolutionStrategy();
 
-            Assert.That(() => convolutionStrategy.Convolute(subSection, position),
+            Assert.That(() => convolutionStrategy.Calculate(subSection, position),
                 Throws.TypeOf<DifferingConvolutionSizeException>());
         }
     }

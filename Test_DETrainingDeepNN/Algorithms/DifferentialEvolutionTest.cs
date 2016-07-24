@@ -9,6 +9,7 @@ using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using DETrainingDeepNN.Strategies.Mutation.Interfaces;
 using DETrainingDeepNN.Algorithms.Interfaces;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Algorithms
 {
@@ -20,7 +21,7 @@ namespace Test_DETrainingDeepNN.Algorithms
         [Test]
         public void GivenADifferentialEvolutionAlgorithm_WhenThePopulationIsInitialisedWithAPopulationSizeOfTen_ItShouldReturnAPopulationOfTenIndividuals()
         {
-            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null, null);
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, null, null, new Configuration());
 
             List<Individual> population = differentialEvolution.InitialisePopulation(10);
 
@@ -30,17 +31,17 @@ namespace Test_DETrainingDeepNN.Algorithms
         [Test]
         public void GivenAPopulationOfThreeAndAnInvalidIndividual_WhenTheGettingTheDifferenceIndividual_ItShouldCallTheSelectionStrategyWithAPopulationExcludingTheInvalidIndividual()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 2.0, 3.0, 4.0 }
             };
 
-            Individual individual3 = new Individual(null)
+            Individual individual3 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 5.0, 6.0, 7.0 }
             };
@@ -61,7 +62,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             mock.Setup(c => c.Select(It.IsAny<List<Individual>>()))
             .Callback((List<Individual> validPopulation) => resultingPopulation = validPopulation);
 
-            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, mock.Object, null);
+            DifferentialEvolution differentialEvolution = new DifferentialEvolution(null, null, null, 
+                mock.Object, null, new Configuration());
             
             differentialEvolution.SelectDifferenceIndividual(population, invalidIndividuals);
 
@@ -79,7 +81,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -92,13 +94,14 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
             
             differentialEvolution.population = new List<Individual>
             {
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy)
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration())
             };
 
             differentialEvolution.GetNewPopulation();
@@ -114,7 +117,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -127,9 +130,10 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy, 
+                                                                                    new Configuration());
 
-            Individual individual = new Individual(fitnessEvaluationStrategy);
+            Individual individual = new Individual(fitnessEvaluationStrategy, new Configuration());
             
             differentialEvolution.population = new List<Individual>
             {
@@ -149,7 +153,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -162,12 +166,13 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
             differentialEvolution.population = new List<Individual>
             {
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy)
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration())
             };
 
             differentialEvolution.GetNewPopulation();
@@ -183,16 +188,16 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
             IMutationStrategy mutationStrategy = mutationMock.Object;
 
-            Individual individual = new Individual(fitnessEvaluationStrategy);
-            Individual target = new Individual(fitnessEvaluationStrategy);
-            Individual difference1 = new Individual(fitnessEvaluationStrategy);
-            Individual difference2 = new Individual(fitnessEvaluationStrategy);
+            Individual individual = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual target = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual difference1 = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual difference2 = new Individual(fitnessEvaluationStrategy, new Configuration());
             
             Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
             selectionMock.SetupSequence(x => x.Select(It.IsAny<List<Individual>>())).Returns(target)
@@ -204,7 +209,8 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
             
             differentialEvolution.population = new List<Individual>
@@ -225,7 +231,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -238,12 +244,13 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy, 
                                                                                     selectionStrategy, 
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
             differentialEvolution.population = new List<Individual>
             {
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy)
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration())
             };
 
             differentialEvolution.GetNewPopulation();
@@ -259,11 +266,11 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
-            Individual individual = new Individual(fitnessEvaluationStrategy);
-            Individual mutant = new Individual(fitnessEvaluationStrategy);
+            Individual individual = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual mutant = new Individual(fitnessEvaluationStrategy, new Configuration());
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
             mutationMock.Setup(x => x.GetTrialVector(It.IsAny<Individual>(), It.IsAny<List<Individual>>()))
@@ -277,7 +284,8 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
             
 
@@ -299,7 +307,7 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
             
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -315,15 +323,16 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     otherSelectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
 
 
             differentialEvolution.population = new List<Individual>
             {
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy),
-                new Individual(fitnessEvaluationStrategy)
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration()),
+                new Individual(fitnessEvaluationStrategy, new Configuration())
             };
 
             differentialEvolution.GetNewPopulation();
@@ -337,8 +346,8 @@ namespace Test_DETrainingDeepNN.Algorithms
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
             IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
             
-            Individual individual = new Individual(fitnessEvaluationStrategy);
-            Individual child = new Individual(fitnessEvaluationStrategy);
+            Individual individual = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual child = new Individual(fitnessEvaluationStrategy, new Configuration());
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>())).Returns(child);
@@ -358,7 +367,8 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
 
 
@@ -380,14 +390,14 @@ namespace Test_DETrainingDeepNN.Algorithms
             Mock<IFitnessEvaluationStrategy> fitnessEvaluationMock = new Mock<IFitnessEvaluationStrategy>();
             IFitnessEvaluationStrategy fitnessEvaluationStrategy = fitnessEvaluationMock.Object;
 
-            Individual individual1 = new Individual(fitnessEvaluationStrategy);
-            Individual child1 = new Individual(fitnessEvaluationStrategy);
-            Individual individual2 = new Individual(fitnessEvaluationStrategy);
-            Individual child2 = new Individual(fitnessEvaluationStrategy);
+            Individual individual1 = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual child1 = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual individual2 = new Individual(fitnessEvaluationStrategy, new Configuration());
+            Individual child2 = new Individual(fitnessEvaluationStrategy, new Configuration());
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
@@ -405,7 +415,8 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     otherSelectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
 
 
@@ -431,21 +442,23 @@ namespace Test_DETrainingDeepNN.Algorithms
             
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
             IMutationStrategy mutationStrategy = mutationMock.Object;
             
             Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
-            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>())).Returns(new Individual(fitnessEvaluationStrategy));
+            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>()))
+                                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ISelectionStrategy selectionStrategy = selectionMock.Object;
             
             DifferentialEvolution differentialEvolution = new DifferentialEvolution(mutationStrategy,
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy,
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
             differentialEvolution.Run();
             
@@ -460,14 +473,15 @@ namespace Test_DETrainingDeepNN.Algorithms
 
             Mock<ICrossoverStrategy> crossoverMock = new Mock<ICrossoverStrategy>();
             crossoverMock.Setup(x => x.Cross(It.IsAny<Individual>(), It.IsAny<Individual>()))
-                .Returns(new Individual(fitnessEvaluationStrategy));
+                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ICrossoverStrategy crossoverStrategy = crossoverMock.Object;
 
             Mock<IMutationStrategy> mutationMock = new Mock<IMutationStrategy>();
             IMutationStrategy mutationStrategy = mutationMock.Object;
 
             Mock<ISelectionStrategy> selectionMock = new Mock<ISelectionStrategy>();
-            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>())).Returns(new Individual(fitnessEvaluationStrategy));
+            selectionMock.Setup(x => x.Select(It.IsAny<List<Individual>>()))
+                                .Returns(new Individual(fitnessEvaluationStrategy, new Configuration()));
             ISelectionStrategy selectionStrategy = selectionMock.Object;
 
 
@@ -475,7 +489,8 @@ namespace Test_DETrainingDeepNN.Algorithms
                                                                                     crossoverStrategy,
                                                                                     selectionStrategy,
                                                                                     selectionStrategy, 
-                                                                                    fitnessEvaluationStrategy);
+                                                                                    fitnessEvaluationStrategy,
+                                                                                    new Configuration());
 
             differentialEvolution.Run();
 

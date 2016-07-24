@@ -6,6 +6,7 @@ using Moq;
 using DETrainingDeepNN.Strategies.Selection.Exceptions;
 using DETrainingDeepNN.RandomGenerators;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Strategies.Selection
 {
@@ -15,22 +16,22 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenFourIndividuals_WhenTheIndividualIsSelectedUsingTheRandomSelectionStrategy_ItShouldReturnAARandomIndividual()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual3 = new Individual(null)
+            Individual individual3 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual4 = new Individual(null)
+            Individual individual4 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
@@ -54,22 +55,22 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenFourIndividuals_WhenTheRandomIndexIsThatOfTheLastIndividual_ItShouldReturnTheLastIndividual()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual3 = new Individual(null)
+            Individual individual3 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual4 = new Individual(null)
+            Individual individual4 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
@@ -93,22 +94,22 @@ namespace Test_DETrainingDeepNN.Strategies.Selection
         [Test]
         public void GivenFourIndividuals_WhenTheRandomIndexIsThatOfTheFirstIndividual_ItShouldReturnTheFirstIndividual()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Fitness = 2.5555
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual3 = new Individual(null)
+            Individual individual3 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };
 
-            Individual individual4 = new Individual(null)
+            Individual individual4 = new Individual(null, new Configuration())
             {
                 Fitness = 1.234
             };

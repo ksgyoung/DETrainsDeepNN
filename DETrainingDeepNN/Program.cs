@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.Strategies.FitnessEvaluation;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace DETrainingDeepNN
 {
@@ -20,8 +21,9 @@ namespace DETrainingDeepNN
     {
         static void Main(string[] args)
         {
-            IMutationStrategy trialVectorMutationStrategy = new TrialIndividualMutationStrategy();
-            ICrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy();
+            IConfiguration configuration = new Configuration();
+            IMutationStrategy trialVectorMutationStrategy = new TrialIndividualMutationStrategy(configuration);
+            ICrossoverStrategy crossoverStrategy = new BinomialCrossoverStrategy(configuration);
             ISelectionStrategy generationSelectionStrategy = new MinimisationElitistSelectionStrategy();
             ISelectionStrategy differenceVectorSelectionStrategy = new RandomSelectionStrategy();
             IFitnessEvaluationStrategy fitnessEvaluationStrategy = new RastriginFitnessEvaluationStrategy();
@@ -31,7 +33,8 @@ namespace DETrainingDeepNN
                 crossoverStrategy, 
                 generationSelectionStrategy, 
                 differenceVectorSelectionStrategy, 
-                fitnessEvaluationStrategy
+                fitnessEvaluationStrategy,
+                configuration
                 );
 
             differentialEvolution.Run();

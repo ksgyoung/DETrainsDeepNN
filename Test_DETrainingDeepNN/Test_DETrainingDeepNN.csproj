@@ -66,6 +66,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Algorithms\DifferentialEvolutionTest.cs" />
+    <Compile Include="Configuration\ConfigurationTest.cs" />
     <Compile Include="Mappers\IndexCalculatorTest.cs" />
     <Compile Include="Models\IndividualTest.cs" />
     <Compile Include="Models\ImageInputTest.cs" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Compile Include="Algorithms\ConvolutionTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <Choose>

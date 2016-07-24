@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using DETrainingDeepNN.RandomGenerators;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace DETrainingDeepNN
 {
@@ -14,12 +15,18 @@ namespace DETrainingDeepNN
         public double Fitness { get; set; }
         public double[] Position { get; set; }
         public IFitnessEvaluationStrategy FitnessEvaluationStrategy;
+        private IConfiguration configuration;
+        private static IConfiguration staticConfiguration;
 
-        public Individual(IFitnessEvaluationStrategy fitnessEvaluationStrategy, int dimensions = 0)
+        public Individual(IFitnessEvaluationStrategy fitnessEvaluationStrategy,
+                          IConfiguration configuration,
+                          int dimensions = 0)
         {
             Fitness = 0;
+            this.configuration = configuration;
             this.InitialisePosition(dimensions);
             this.FitnessEvaluationStrategy = fitnessEvaluationStrategy;
+            Individual.staticConfiguration = configuration;
         }
 
         private void InitialisePosition(int dimensions)
@@ -36,7 +43,7 @@ namespace DETrainingDeepNN
 
         private int GetDefaultDimensions()
         {
-            return Int32.Parse(ConfigurationManager.AppSettings["Dimensions"]);
+            return Int32.Parse(this.configuration.GetValue("Dimensions"));
         }
 
         internal void EvaluateFitness()
@@ -46,7 +53,7 @@ namespace DETrainingDeepNN
         
         public static Individual operator +(Individual individual1, Individual individual2)
         {
-            return new Individual(individual1.FitnessEvaluationStrategy)
+            return new Individual(individual1.FitnessEvaluationStrategy, Individual.staticConfiguration)
             {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x + y).ToArray()
             };
@@ -54,7 +61,7 @@ namespace DETrainingDeepNN
 
         public static Individual operator -(Individual individual1, Individual individual2)
         {
-            return new Individual(individual1.FitnessEvaluationStrategy)
+            return new Individual(individual1.FitnessEvaluationStrategy, Individual.staticConfiguration)
             {
                 Position = individual1.Position.Zip(individual2.Position, (x, y) => x - y).ToArray()
             };

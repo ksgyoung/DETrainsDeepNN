@@ -1,4 +1,5 @@
-﻿using DETrainingDeepNN.RandomGenerators;
+﻿using DETrainingDeepNN.ConfigurationSettings;
+using DETrainingDeepNN.RandomGenerators;
 using DETrainingDeepNN.Strategies.Crossover.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,20 @@ namespace DETrainingDeepNN.Strategies.Crossover
     {
         private double probability;
         private RandomGenerator random;
+        private IConfiguration configuration;
 
-        public BinomialCrossoverStrategy()
+        public BinomialCrossoverStrategy(IConfiguration configuration)
         {
-            this.probability = Double.Parse(ConfigurationManager.AppSettings["CrossoverProbability"]);
+            this.probability = Double.Parse(configuration.GetValue("CrossoverProbability"));
             this.random = RandomGenerator.GetInstance();
+            this.configuration = configuration;
         }
         
-        public BinomialCrossoverStrategy(double probability)
+        public BinomialCrossoverStrategy(IConfiguration configuration, double probability)
         {
             this.probability = probability;
             this.random = RandomGenerator.GetInstance();
+            this.configuration = configuration;
         }
 
         public Individual Cross(Individual individual1, Individual individual2)
@@ -40,7 +44,7 @@ namespace DETrainingDeepNN.Strategies.Crossover
                     : individual2.Position[index];
             }
 
-            return new Individual(individual1.FitnessEvaluationStrategy)
+            return new Individual(individual1.FitnessEvaluationStrategy, configuration)
             {
                 Position = newPosition
             };

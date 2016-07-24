@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
 using NUnit.Framework;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN
 {
@@ -13,14 +14,14 @@ namespace Test_DETrainingDeepNN
         [Test]
         public void GivenAnIndividualIsInitialised_WhenTheFitnessIsRetrieved_ItShouldBeZero()
         {
-            Individual individual = new Individual(null, 10);
+            Individual individual = new Individual(null, new Configuration(), 10);
             Assert.AreEqual(individual.Fitness, 0);
         }
 
         [Test]
         public void GivenAnIndividualIsInitialised_WhenThePositionIsRetrieved_ItShouldNotAllConsistOfZeros()
         {
-            Individual individual = new Individual(null, 10);
+            Individual individual = new Individual(null, new Configuration(), 10);
             
             double sumOfPositions = individual.Position.Sum();
 
@@ -30,12 +31,12 @@ namespace Test_DETrainingDeepNN
         [Test]
         public void GivenTwoIndividuals_WhenTheyAreAddedUsingThePlusOperator_ItShouldResultInANewIndividualWithTheSumOfEachDimension()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 4.0, 5.0, 6.0 }
             };
@@ -50,12 +51,12 @@ namespace Test_DETrainingDeepNN
         [Test]
         public void GivenTwoIndividuals_WhenTheyAreSubstracterUsingTheMinusOperator_ItShouldResultInANewIndividualWithTheDifferenceOfEachDimension()
         {
-            Individual individual1 = new Individual(null)
+            Individual individual1 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 4.0, 2.0, 6.0 }
             };
 
-            Individual individual2 = new Individual(null)
+            Individual individual2 = new Individual(null, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 4.0 }
             };
@@ -75,7 +76,7 @@ namespace Test_DETrainingDeepNN
 
             IFitnessEvaluationStrategy fitnessEvaluation = mock.Object;
 
-            Individual individual = new Individual(fitnessEvaluation)
+            Individual individual = new Individual(fitnessEvaluation, new Configuration())
             {
                 Position = new double[] { 1.0, 2.0, 3.0 }
             };
