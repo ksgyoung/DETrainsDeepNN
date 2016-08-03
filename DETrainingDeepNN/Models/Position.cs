@@ -18,7 +18,7 @@ namespace DETrainingDeepNN.Models
             this.Y = y;
             this.stride = stride;
         }
-
+        
         public void SlideForward()
         {
             this.X += this.stride;

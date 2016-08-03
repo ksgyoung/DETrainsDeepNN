@@ -5,7 +5,7 @@ using DETrainingDeepNN.ConfigurationSettings;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 
 namespace Test_DETrainingDeepNN.Mappers
 {

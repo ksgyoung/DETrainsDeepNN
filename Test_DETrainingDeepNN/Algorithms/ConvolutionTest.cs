@@ -4,8 +4,9 @@ using Moq;
 using NUnit.Framework;
 using DETrainingDeepNN.Algorithms;
 using System.Collections.Generic;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 using System.Linq;
+using DETrainingDeepNN.ConfigurationSettings;
 
 namespace Test_DETrainingDeepNN.Strategies.ConvolutionStrategies
 {
@@ -20,8 +21,8 @@ namespace Test_DETrainingDeepNN.Strategies.ConvolutionStrategies
 										.Returns(new double[4] { 0.2, 1.3, 0.8, 3.1 })
                                         .Returns(new double[4] { 0.8, 5.2, 1.1, 1.1 })
                                         .Returns(new double[4] { 0.1, 1.1, 0.5, 0.4 });
-
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
+            
+            ImageInput input = new ImageInput(new TwoDimensionalMapper(), new Configuration());
 
             input.SetNumericRepresentation(new double[4, 4]);
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Mappers.Interfaces
+namespace DETrainingDeepNN.Calculators.Interfaces
 {
     public interface ILayeredFilterGroupMapper
     {

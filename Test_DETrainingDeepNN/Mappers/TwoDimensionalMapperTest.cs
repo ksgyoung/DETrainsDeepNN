@@ -1,4 +1,4 @@
-﻿using DETrainingDeepNN.Mappers;
+﻿using DETrainingDeepNN.Calculators;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

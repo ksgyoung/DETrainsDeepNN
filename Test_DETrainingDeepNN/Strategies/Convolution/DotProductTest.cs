@@ -6,7 +6,7 @@ using DETrainingDeepNN.Strategies.Crossover;
 using System.Linq;
 using DETrainingDeepNN.Strategies.ConvolutionStrategies;
 using DETrainingDeepNN.Models;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 using Moq;
 using DETrainingDeepNN.Strategies.Exceptions;
 using NUnit.Framework;

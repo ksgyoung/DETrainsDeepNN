@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DETrainingDeepNN.Strategies.FitnessEvaluation.Interfaces;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 using DETrainingDeepNN.ConfigurationSettings;
 
 namespace DETrainingDeepNN.Models

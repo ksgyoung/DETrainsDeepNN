@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Mappers
+namespace DETrainingDeepNN.Calculators
 {
     public class TwoDimensionalMapper : ITwoDimensionalMapper
     {
-        private IndexCalculator indexCalculator;
+        private TwoDimensionalIndexCalculator indexCalculator;
 
         public TwoDimensionalMapper()
         {
-            indexCalculator = new IndexCalculator();
+            indexCalculator = new TwoDimensionalIndexCalculator();
         }
 
         public double[] GetArrayRepresentation(double[,] matrix)

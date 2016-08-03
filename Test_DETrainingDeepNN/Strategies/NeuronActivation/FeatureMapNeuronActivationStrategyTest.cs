@@ -1,6 +1,6 @@
 ﻿using DETrainingDeepNN;
 using DETrainingDeepNN.ConfigurationSettings;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 using DETrainingDeepNN.Models;
 using DETrainingDeepNN.Strategies.ConvolutionStrategies;
 using DETrainingDeepNN.Strategies.NeuronActivation;
@@ -37,7 +37,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             double[] filter = { 0.1, 0.2 };
 
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
+            ImageInput input = new ImageInput(new TwoDimensionalMapper(), new Configuration());
             input.SetNumericRepresentation(inputSubsection);
 
             Mock<IDotProductConvolutionStrategy> dotProductMock = new Mock<IDotProductConvolutionStrategy>();
@@ -64,7 +64,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             double[] filter = { 0.1, 0.2 };
 
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
+            ImageInput input = new ImageInput(new TwoDimensionalMapper(), new Configuration());
             input.SetNumericRepresentation(inputSubsection);
 
             FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
@@ -73,138 +73,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
 
             Assert.AreEqual(0.3, part);
         }
-
-        [Test]
-        public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
-        {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
-
-            Position position = new Position(0, 0, 1);
-            double[,] matrix = new double[4, 4];
-            matrix[0, 0] = 0;
-            matrix[0, 1] = 1;
-            matrix[0, 2] = 2;
-            matrix[0, 3] = 3;
-            matrix[1, 0] = 4;
-            matrix[1, 1] = 5;
-            matrix[1, 2] = 6;
-            matrix[1, 3] = 7;
-            matrix[2, 0] = 8;
-            matrix[2, 1] = 9;
-            matrix[2, 2] = 10;
-            matrix[2, 3] = 11;
-            matrix[3, 0] = 12;
-            matrix[3, 1] = 13;
-            matrix[3, 2] = 14;
-            matrix[3, 3] = 15;
-
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
-            input.SetNumericRepresentation(matrix);
-
-            double[] slide = strategy.GetSlide(input, position);
-            double[] expected = { 1, 2, 5, 6 };
-
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
-        }
-
-        [Test]
-        public void GivenAFourByFourInputAndAThreeByThreeFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
-        {
-            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
-            configuration.Setup(x => x.GetValue(It.IsAny<String>())).Returns("3");
-
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), configuration.Object);
-
-            Position position = new Position(0, 0, 1);
-
-            double[,] matrix = new double[4, 4];
-            matrix[0, 0] = 0;
-            matrix[0, 1] = 1;
-            matrix[0, 2] = 2;
-            matrix[0, 3] = 3;
-            matrix[1, 0] = 4;
-            matrix[1, 1] = 5;
-            matrix[1, 2] = 6;
-            matrix[1, 3] = 7;
-            matrix[2, 0] = 8;
-            matrix[2, 1] = 9;
-            matrix[2, 2] = 10;
-            matrix[2, 3] = 11;
-            matrix[3, 0] = 12;
-            matrix[3, 1] = 13;
-            matrix[3, 2] = 14;
-            matrix[3, 3] = 15;
-
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
-            input.SetNumericRepresentation(matrix);
-            
-            double[] slide = strategy.GetSlide(input, position);
-            double[] expected = { 1, 2, 3, 5, 6, 7, 9, 10, 11 };
-
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
-        }
-
-        [Test]
-        public void GivenAThreeByThreeInputAndATwoByTwoFilter_WhenTheFilterIsSlid_ItShouldReturnAMappedRepresentationOfTheNextSection()
-        {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
-
-            Position position = new Position(0, 0, 1);
-
-            double[,] matrix = new double[4, 4];
-            matrix[0, 0] = 0;
-            matrix[0, 1] = 1;
-            matrix[0, 2] = 2;
-            matrix[1, 0] = 3;
-            matrix[1, 1] = 4;
-            matrix[1, 2] = 5;
-            matrix[2, 0] = 6;
-            matrix[2, 1] = 7;
-            matrix[2, 2] = 8;
-
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
-            input.SetNumericRepresentation(matrix);
-
-            double[] slide = strategy.GetSlide(input, position);
-            double[] expected = { 1, 2, 4, 5 };
-
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
-        }
-
-        [Test]
-        public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheFilterIsSlidFromTheEnd_ItShouldReturnARepresentationOfTheLeftestSectionOneLevelDown()
-        {
-            FeatureMapNeuronActivationStrategy strategy = new FeatureMapNeuronActivationStrategy(MockDotProduct(), new Configuration());
-
-            Position position = new Position(2, 0, 1);
-
-            double[,] matrix = new double[4, 4];
-            matrix[0, 0] = 0;
-            matrix[0, 1] = 1;
-            matrix[0, 2] = 2;
-            matrix[0, 3] = 3;
-            matrix[1, 0] = 4;
-            matrix[1, 1] = 5;
-            matrix[1, 2] = 6;
-            matrix[1, 3] = 7;
-            matrix[2, 0] = 8;
-            matrix[2, 1] = 9;
-            matrix[2, 2] = 10;
-            matrix[2, 3] = 11;
-            matrix[3, 0] = 12;
-            matrix[3, 1] = 13;
-            matrix[3, 2] = 14;
-            matrix[3, 3] = 15;
-
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
-            input.SetNumericRepresentation(matrix);
-
-            double[] slide = strategy.GetSlide(input, position);
-            double[] expected = { 4, 5, 8, 9 };
-
-            Assert.IsTrue(Enumerable.SequenceEqual(expected, slide));
-        }
-
+        
         [Test]
         public void GivenAFourByFourInputAndATwoByTwoFilter_WhenTheNeuronIsActivated_ItShouldReturnAFeatureMap()
         {
@@ -221,7 +90,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             matrix[2, 1] = 7;
             matrix[2, 2] = 8;
             
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
+            ImageInput input = new ImageInput(new TwoDimensionalMapper(), new Configuration());
             input.SetNumericRepresentation(matrix);
 
             double[] mockFilter = new double[4];
@@ -255,7 +124,7 @@ namespace Test_DETrainingDeepNN.Strategies.NeuronActivation
             matrix[3, 2] = 14;
             matrix[3, 3] = 15;
 
-            ImageInput input = new ImageInput(new TwoDimensionalMapper());
+            ImageInput input = new ImageInput(new TwoDimensionalMapper(), new Configuration());
             input.SetNumericRepresentation(matrix);
 
             double[] mockFilter = new double[4];

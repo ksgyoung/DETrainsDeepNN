@@ -47,7 +47,7 @@ namespace Test_DETrainingDeepNN.Models
 
             Assert.AreEqual(position.X, 4);
         }
-
+        
         [Test]
         public void GivenAnPosition_WhenThePositionIsSlidBackByOne_ItShouldRemoveOneFromTheXcoordinate()
         {

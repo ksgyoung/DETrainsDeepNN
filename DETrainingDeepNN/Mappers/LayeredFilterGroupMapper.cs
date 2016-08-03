@@ -1,12 +1,12 @@
 ﻿using DETrainingDeepNN.ConfigurationSettings;
-using DETrainingDeepNN.Mappers.Interfaces;
+using DETrainingDeepNN.Calculators.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DETrainingDeepNN.Mappers
+namespace DETrainingDeepNN.Calculators
 {
     public class LayeredFilterGroupMapper : ILayeredFilterGroupMapper
     {

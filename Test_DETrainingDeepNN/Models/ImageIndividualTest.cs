@@ -1,6 +1,6 @@
 ﻿using DETrainingDeepNN;
 using DETrainingDeepNN.ConfigurationSettings;
-using DETrainingDeepNN.Mappers;
+using DETrainingDeepNN.Calculators;
 using DETrainingDeepNN.Models;
 using Moq;
 using NUnit.Framework;

@@ -64,7 +64,7 @@
     <Compile Include="Algorithms\interfaces\IDifferentialEvolution.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
-    <Compile Include="Mappers\IndexCalculator.cs" />
+    <Compile Include="Calculators\TwoDimensionalIndexCalculator.cs" />
     <Compile Include="Mappers\Interfaces\ILayeredFilterGroupMapper.cs" />
     <Compile Include="Mappers\Interfaces\ITwoDimensionalMapper.cs" />
     <Compile Include="Mappers\LayeredFilterGroupMapper.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Models\Individual.cs" />
     <Compile Include="Models\LayeredFilterGroup.cs" />
     <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Slider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGenerators\RandomGenerator.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Strategies\Selection\Interfaces\ISelectionStrategy.cs" />
     <Compile Include="Strategies\Selection\MinimisationElitistSelectionStrategy.cs" />
     <Compile Include="Strategies\Selection\RandomSelectionStrategy.cs" />
+    <Compile Include="Strategies\SlideRetrieval\StrideBasedSlideRetrievalStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

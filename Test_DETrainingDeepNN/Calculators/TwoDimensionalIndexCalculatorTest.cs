@@ -1,4 +1,4 @@
-﻿using DETrainingDeepNN.Mappers;
+﻿using DETrainingDeepNN.Calculators;
 using NUnit.Framework;
 using System;
 
@@ -10,7 +10,7 @@ namespace Test_DETrainingDeepNN.Mappers
         [Test]
         public void GivenAWidthOfFour_WhenTheIndexIsRetrieved_ItShouldReturnTheIndexOfTheArray()
         {
-            IndexCalculator indexCalculator = new IndexCalculator();
+            TwoDimensionalIndexCalculator indexCalculator = new TwoDimensionalIndexCalculator();
 
             Assert.AreEqual(5, indexCalculator.GetIndex(4, 1, 1));
         }
@@ -18,7 +18,7 @@ namespace Test_DETrainingDeepNN.Mappers
         [Test]
         public void GivenAWidthOfFive_WhenTheIndexIsRetrieved_ItShouldReturnTheIndexOfTheArray()
         {
-            IndexCalculator indexCalculator = new IndexCalculator();
+            TwoDimensionalIndexCalculator indexCalculator = new TwoDimensionalIndexCalculator();
 
             Assert.AreEqual(6, indexCalculator.GetIndex(5, 1, 1));
         }
@@ -26,7 +26,7 @@ namespace Test_DETrainingDeepNN.Mappers
         [Test]
         public void GivenAWidthOfSix_WhenTheIndexIsRetrieved_ItShouldReturnTheIndexOfTheArray()
         {
-            IndexCalculator indexCalculator = new IndexCalculator();
+            TwoDimensionalIndexCalculator indexCalculator = new TwoDimensionalIndexCalculator();
 
             Assert.AreEqual(11, indexCalculator.GetIndex(6, 5, 1));
         }
