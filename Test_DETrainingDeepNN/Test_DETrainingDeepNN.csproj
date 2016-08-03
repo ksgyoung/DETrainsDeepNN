@@ -68,6 +68,8 @@
     <Compile Include="Algorithms\DifferentialEvolutionTest.cs" />
     <Compile Include="Configuration\ConfigurationTest.cs" />
     <Compile Include="Mappers\IndexCalculatorTest.cs" />
+    <Compile Include="Mappers\LayeredFilterGroupMapperTest.cs" />
+    <Compile Include="Models\LayeredFilterGroupTest.cs" />
     <Compile Include="Models\IndividualTest.cs" />
     <Compile Include="Models\ImageInputTest.cs" />
     <Compile Include="Models\PositionTest.cs" />

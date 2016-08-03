@@ -65,11 +65,14 @@
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Mappers\IndexCalculator.cs" />
+    <Compile Include="Mappers\Interfaces\ILayeredFilterGroupMapper.cs" />
     <Compile Include="Mappers\Interfaces\ITwoDimensionalMapper.cs" />
+    <Compile Include="Mappers\LayeredFilterGroupMapper.cs" />
     <Compile Include="Mappers\TwoDimensionalMapper.cs" />
     <Compile Include="Models\ImageIndividual.cs" />
     <Compile Include="Models\ImageInput.cs" />
     <Compile Include="Models\Individual.cs" />
+    <Compile Include="Models\LayeredFilterGroup.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
